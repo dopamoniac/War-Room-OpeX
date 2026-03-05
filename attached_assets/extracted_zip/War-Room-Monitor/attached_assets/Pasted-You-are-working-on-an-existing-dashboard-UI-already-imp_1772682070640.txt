@@ -1,0 +1,103 @@
+You are working on an existing dashboard UI (already implemented) called “Gestion Abnormalités & Actions” as shown in the screenshot.
+
+IMPORTANT RULES:
+- Do NOT rebuild the whole app.
+- Do NOT change navigation, layout, theme, or sidebar.
+- Only ENHANCE this existing Abnormalities & Actions module.
+- Keep the same dark UI style, spacing, and components.
+- Add features progressively and safely.
+
+CURRENT SCREEN (already exists):
+- Title: “Gestion Abnormalités & Actions”
+- Top actions: “Déclarer Abnormalité” and “Nouvelle Action”
+- Tabs: “Abnormalités ouvertes (x)” and “Actions en cours (x)”
+- KPI cards: Ouvertes, En investigation, Contenues, Fermées
+- Abnormality list with severity badges (Critique/Haute/Moyenne) + status dropdown (Investigating/Contained/Open)
+
+GOAL:
+Transform this screen into a complete “Lean Problem Solving cockpit” by integrating Lean tools:
+1) Pareto
+2) 5 Why
+3) Ishikawa (Fishbone 6M)
+4) PDCA action plan
+5) Evidence + Traceability
+6) High-quality Export PDF (A4/A3)
+
+----------------------------------------
+FEATURE 1 — Abnormality Detail Drawer / Page (NO UI BREAK)
+When user clicks an abnormality row, open a right-side drawer (or dedicated detail page) with these sections:
+
+A) Header
+- Abnormality title
+- Line / Area / Shift / Date
+- Severity badge + Status badge
+- Owner + Team
+- Impacted KPI (SQDCM tag)
+
+B) Quick Actions
+- Add action
+- Attach photo/file
+- Start analysis (Pareto / 5Why / Ishikawa)
+- Export PDF
+
+C) Timeline + Traceability
+- Chronological events: creation, status changes, actions created, validations
+- “Last modified” timestamp + “Confidence level” (High/Medium/Low)
+
+----------------------------------------
+FEATURE 2 — Smart Pareto (Dynamic + linked to problem)
+Add a “Pareto Analysis” tab inside the abnormality detail.
+Requirements:
+- Pareto data is generated from abnormality history (defect types / reasons / categories).
+- Allow filtering: Date range, Line, Area, Category, Severity.
+- Clicking a Pareto bar proposes “Root cause candidates” and auto-fills Ishikawa branches suggestions.
+- Show 80% cumulative line and highlight top causes.
+
+----------------------------------------
+FEATURE 3 — Ishikawa (6M) interactive
+Add an “Ishikawa” tab inside abnormality detail.
+Requirements:
+- Fishbone with 6M: Man, Machine, Method, Material, Measurement, Milieu.
+- Each branch can add/remove causes (editable).
+- Each cause supports: note, photo, owner, confidence, evidence link.
+- Must be printable/exportable.
+
+----------------------------------------
+FEATURE 4 — 5 Why (guided)
+Add a “5 Why” tab inside abnormality detail.
+Requirements:
+- Step-by-step 5 why ladder (Why1..Why5).
+- Each step has: statement, evidence, responsible, validation checkbox.
+- Final output: “Root Cause Statement” (one sentence).
+- Button: “Convert root cause to PDCA plan”.
+
+----------------------------------------
+FEATURE 5 — PDCA / Action Plan (strong)
+Inside abnormality detail: “Action Plan” section.
+Requirements:
+- Actions grouped by PDCA: Plan / Do / Check / Act
+- Each action: description, owner, due date, status, attachments, comment thread
+- Automatic KPI: % completion + overdue alerts
+- Link actions to specific root causes (from 5Why / Ishikawa)
+
+----------------------------------------
+FEATURE 6 — Export PDF (A4/A3 high quality)
+Add “Export PDF” in abnormality detail.
+PDF must contain:
+- Header: LEONI OPEX War Room + Abnormality title + metadata
+- Summary page: problem, severity, status, impacted KPI
+- Pareto page (if used)
+- Ishikawa page (if used)
+- 5 Why page (if used)
+- Action plan page (PDCA table)
+- Footer: page numbers + timestamp + user name
+Quality rules:
+- sharp text, no blur
+- print-friendly option (white background)
+
+----------------------------------------
+DELIVERABLES:
+- Implement these features with minimal changes to existing code.
+- Provide exact files/components to add or modify.
+- Ensure no TypeScript/React errors.
+- Keep everything responsive and smooth.

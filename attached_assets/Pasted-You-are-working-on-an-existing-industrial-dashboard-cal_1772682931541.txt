@@ -1,0 +1,148 @@
+You are working on an existing industrial dashboard called **LEONI OPEX War Room**.
+
+The system already exists and contains multiple modules such as:
+
+* War Room
+* KPI Studio
+* Abnormalities & Actions
+* CI / Kaizen Hub
+* VSM Studio
+* Portfolio Projects
+
+IMPORTANT RULES:
+
+* Do NOT rebuild the application.
+* Do NOT change the existing layout or navigation.
+* Do NOT remove any existing components.
+* Only **enhance the existing modules** with additional capabilities.
+* Maintain the same **dark theme, UI style, spacing, and design consistency**.
+
+---
+
+# KPI STUDIO — ADVANCED KPI VISUALIZATION
+
+Enhance the **KPI Studio module** by implementing a **professional KPI visualization system** capable of generating multiple types of charts.
+
+The KPI module must support **five types of dynamic charts**.
+
+### Supported chart types
+
+1. Bar Chart
+2. Line Chart
+3. Pie Chart
+4. Area Chart
+5. Stacked Bar Chart
+
+These charts must be generated dynamically from KPI datasets already present in the system.
+
+---
+
+# CHART REQUIREMENTS
+
+Charts must be **professional and industrial-grade**, suitable for **management reporting and operational dashboards**.
+
+Each chart must support:
+
+• Dynamic data updates
+• Custom labels and titles
+• Editable axis labels
+• Adjustable color palettes
+• Tooltip values
+• Legend display
+• Data filtering by date range / line / department
+
+Users must be able to **edit chart properties directly from the UI**.
+
+Editable parameters include:
+
+* chart title
+* axis names
+* colors
+* displayed metrics
+* aggregation type (daily / weekly / monthly)
+
+---
+
+# EXPORT FEATURES (HIGH QUALITY)
+
+Charts must be exportable in **high-quality formats suitable for reports and presentations**.
+
+Supported exports:
+
+• PNG (high resolution)
+• SVG (vector format)
+• PDF (print quality)
+
+Export specifications:
+
+* minimum **300 DPI quality**
+* no pixelation
+* clear fonts
+* sharp lines
+* printable on **A4 and A3**
+
+Charts must also support **direct printing**.
+
+---
+
+# DASHBOARD INTERACTIVITY
+
+Charts must be **fully interactive**:
+
+* zoom
+* hover tooltips
+* highlight segments
+* toggle data series
+* filter datasets
+
+Charts should automatically update when:
+
+* KPI data changes
+* time range filters are applied
+* production line filters are applied
+
+---
+
+# LAYOUT IN KPI STUDIO
+
+Within KPI Studio:
+
+Charts should be displayed in **responsive KPI cards** arranged in a flexible grid layout.
+
+Each chart card must include:
+
+* KPI title
+* metric value
+* chart visualization
+* export button
+* edit configuration button
+
+---
+
+# EXPORT KPI REPORT
+
+Allow users to generate a **KPI performance report** including multiple charts.
+
+Export options:
+
+• PDF report
+• Printable report
+
+The report must include:
+
+* dashboard title
+* date range
+* charts with titles
+* KPI values
+* export timestamp
+
+---
+
+# DEVELOPMENT CONSTRAINTS
+
+Implementation must:
+
+* reuse existing KPI data structures
+* not modify unrelated modules
+* maintain compatibility with the current frontend framework
+* avoid breaking the current system architecture

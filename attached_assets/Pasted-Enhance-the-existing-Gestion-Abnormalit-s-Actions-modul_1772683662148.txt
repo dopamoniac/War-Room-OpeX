@@ -1,0 +1,234 @@
+Enhance the existing **“Gestion Abnormalités & Actions”** module in the LEONI OPEX War Room dashboard by integrating a complete **A3 Problem Solving workflow** used in Lean Manufacturing.
+
+Important constraints:
+
+* The Abnormalities page already exists.
+* Do NOT redesign the page layout.
+* Do NOT change navigation or sidebar.
+* Only extend the existing abnormality investigation panel.
+* Maintain the same dark UI design and component structure.
+
+The goal is to transform the module into a **structured industrial problem-solving system**.
+
+---
+
+# INVESTIGATION WORKFLOW
+
+The abnormality investigation must follow this structured sequence:
+
+1. QQOQCCP (Problem Description)
+2. Pareto Analysis
+3. Ishikawa Diagram
+4. 5 Why Root Cause Analysis
+5. Corrective Action Plan (PDCA)
+6. Monitoring & Validation
+
+Each step must appear as a tab inside the abnormality detail panel.
+
+---
+
+# STEP 1 — QQOQCCP (Problem Definition)
+
+Provide a structured problem description using the QQOQCCP method.
+
+Fields must include:
+
+Qui (Who)
+
+* operator involved
+* department
+* responsible team
+
+Quoi (What)
+
+* abnormality description
+* affected process
+* visible symptoms
+
+Où (Where)
+
+* production line
+* workstation
+* machine
+
+Quand (When)
+
+* date
+* time
+* shift
+
+Comment (How)
+
+* sequence of events
+* conditions during occurrence
+
+Combien (Impact)
+
+* scrap quantity
+* downtime duration
+* production delay
+
+Pourquoi (Initial hypothesis)
+
+* suspected cause
+* observations
+
+This section must clearly define the problem before starting analysis.
+
+---
+
+# STEP 2 — PARETO ANALYSIS
+
+Generate a dynamic Pareto chart showing the main abnormality causes.
+
+Features:
+
+* bar chart + cumulative curve
+* highlight top contributors (80/20 rule)
+* filters by line, date, category
+
+Charts must be:
+
+* interactive
+* high resolution
+* exportable (PNG / SVG / PDF)
+
+---
+
+# STEP 3 — ISHIKAWA DIAGRAM (6M)
+
+Provide an interactive Fishbone diagram with the Lean **6M categories**:
+
+Man
+Machine
+Method
+Material
+Measurement
+Milieu (Environment)
+
+Users must be able to:
+
+* add causes
+* edit causes
+* attach evidence
+* assign investigators
+
+Diagram must be printable and exportable.
+
+---
+
+# STEP 4 — 5 WHY ROOT CAUSE ANALYSIS
+
+Provide a structured interface guiding the user through five levels of questioning.
+
+Fields:
+
+Why 1
+Why 2
+Why 3
+Why 4
+Why 5
+
+At the end generate:
+
+Root Cause Statement
+
+---
+
+# STEP 5 — ACTION PLAN (PDCA)
+
+Create a corrective action plan structured using PDCA.
+
+Plan
+Define corrective measures.
+
+Do
+Implement the action.
+
+Check
+Verify results.
+
+Act
+Standardize improvements.
+
+Each action must include:
+
+* action description
+* responsible person
+* deadline
+* status
+* attachments
+* progress percentage
+
+---
+
+# STEP 6 — MONITORING
+
+Add monitoring indicators for the abnormality:
+
+* resolution time
+* action completion rate
+* recurrence detection
+* abnormality trend over time
+
+Charts must support:
+
+Bar
+Line
+Pie
+Area
+Stacked bar
+
+All charts must be:
+
+* interactive
+* editable
+* high resolution
+* exportable
+
+---
+
+# TIMELINE & TRACEABILITY
+
+Add a chronological timeline displaying:
+
+* abnormality detection
+* investigation updates
+* actions created
+* actions completed
+* abnormality closure
+
+Each event must include timestamp and responsible person.
+
+---
+
+# EXPORT REPORT
+
+Allow exporting a full **Abnormality Investigation Report**.
+
+Report must contain:
+
+Problem definition (QQOQCCP)
+Pareto analysis
+Ishikawa diagram
+5 Why analysis
+Corrective action plan
+Investigation timeline
+
+Export formats:
+
+PDF (A4 / A3)
+Printable report
+
+All graphics must be **high quality (300 DPI equivalent)**.
+
+---
+
+# SYSTEM CONSTRAINTS
+
+Implementation must:
+
+* reuse existing abnormality data
+* avoid modifying unrelated modules
+* maintain compatibility with the current dashboard architecture
+* ensure responsive and fast performance

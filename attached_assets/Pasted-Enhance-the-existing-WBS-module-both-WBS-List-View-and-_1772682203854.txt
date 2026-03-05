@@ -1,0 +1,120 @@
+Enhance the existing WBS module (both WBS List View and WBS Diagram View) by adding **high-quality export + printing** for BOTH views.
+
+Do NOT change the current UI structure or remove anything. Only ADD export/print features.
+
+---
+
+## 1) EXPORT BUTTONS (FOR BOTH VIEWS)
+
+Add on the top-right of the WBS area (same place in both views):
+
+* **Export PDF**
+* **Print**
+* Optional: **Export PNG** (high resolution)
+
+Buttons must work for:
+
+* **List View**
+* **Diagram View**
+
+---
+
+## 2) PDF EXPORT QUALITY (HIGH RES)
+
+Export must be crisp and readable when printed on paper.
+
+Requirements:
+
+* Export at **A4** and **A3** sizes (user chooses)
+* Orientation: **Portrait / Landscape** (user chooses)
+* Resolution: **300 DPI equivalent**
+* Text must remain sharp (no blurry fonts)
+* Lines and borders must be sharp
+* Keep colors consistent with the dashboard theme
+* Include margins and avoid cutting content
+
+---
+
+## 3) WHAT THE PDF MUST CONTAIN
+
+### Common header (both views)
+
+Top header bar in PDF:
+
+* LEONI OPEX War Room
+* Project Name
+* Area / Line (if available)
+* Date of export + user name
+* View type: “WBS List” or “WBS Diagram”
+
+### Footer (both views)
+
+* Page number: “Page X / Y”
+* Export timestamp
+
+---
+
+## 4) LIST VIEW PDF RULES
+
+* Use the same hierarchy indentation as the UI
+* Show columns: Name, Owner, Start, End, Progress, Status
+* Long text wraps cleanly
+* If content is long: paginate automatically
+* Each phase can start on a new section (optional but clean)
+* Keep G/O/R or status badges visible in print (convert to clear labels if needed)
+
+---
+
+## 5) DIAGRAM VIEW PDF RULES (MOST IMPORTANT)
+
+The diagram must export FULLY (even if it is larger than the screen).
+
+Add export options:
+
+* **Fit to page** (auto scale to 1 page)
+* **Multi-page tiling** (split the diagram across multiple pages)
+* **Auto center**
+* Include legend of node types (Project/Phase/Deliverable/Task/Sub-task)
+
+Diagram must be readable:
+
+* Minimum font size in PDF equivalent to **10–12pt**
+* Lines thickness consistent
+* No clipped boxes
+* Keep spacing balanced
+
+---
+
+## 6) PRINT MODE (BROWSER PRINT)
+
+Implement a clean print stylesheet / print layout:
+
+* Hide sidebar and unnecessary UI elements
+* Print ONLY the WBS content + header/footer
+* Respect selected page size and orientation
+* Ensure dark theme doesn’t waste ink:
+
+  * Provide “Print friendly” option: white background + dark text
+  * Keep accent colors for statuses only
+
+---
+
+## 7) USER FLOW (SIMPLE)
+
+When user clicks Export PDF:
+Open a small modal:
+
+* Size: A4 / A3
+* Orientation: Portrait / Landscape
+* Mode: Fit to page / Multi-page (diagram only)
+* Theme: Dark (as UI) / Print-friendly
+
+Then generate and download the PDF.
+
+---
+
+## 8) DO NOT BREAK EXISTING SYSTEM
+
+* Reuse the existing WBS data
+* No refactor of unrelated pages
+* Only add export/print features for WBS List and WBS Diagram

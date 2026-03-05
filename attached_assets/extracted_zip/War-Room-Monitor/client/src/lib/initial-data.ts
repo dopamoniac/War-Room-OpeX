@@ -1,0 +1,450 @@
+import type { KPIEntry, Action, Abnormality, CIProject, VSMStep, Project, KaizenCard } from '@shared/schema';
+
+export const INITIAL_KPIS: KPIEntry[] = [
+  { id: 'kpi-s1', name: 'Taux de fréquence accidents', category: 'S', unit: 'TF', target: 0, actual: 0.5, previousMonth: 0.8, dept: 'HSE', trend: [1.2, 0.9, 0.8, 0.7, 0.5], date: '2026-03' },
+  { id: 'kpi-s2', name: 'Jours sans accident', category: 'S', unit: 'jours', target: 365, actual: 47, previousMonth: 16, dept: 'HSE', trend: [5, 12, 16, 30, 47], date: '2026-03' },
+  { id: 'kpi-s3', name: 'Near Miss reportés', category: 'S', unit: 'nb', target: 20, actual: 15, previousMonth: 12, dept: 'HSE', trend: [8, 10, 12, 14, 15], date: '2026-03' },
+  { id: 'kpi-q1', name: 'PPM Client', category: 'Q', unit: 'ppm', target: 50, actual: 65, previousMonth: 72, dept: 'Qualité', trend: [95, 88, 78, 72, 65], date: '2026-03' },
+  { id: 'kpi-q2', name: 'Scrap Rate', category: 'Q', unit: '%', target: 1.5, actual: 1.8, previousMonth: 2.1, dept: 'Qualité', trend: [2.8, 2.5, 2.1, 1.9, 1.8], date: '2026-03' },
+  { id: 'kpi-q3', name: 'First Pass Yield', category: 'Q', unit: '%', target: 98, actual: 96.5, previousMonth: 95.8, dept: 'P1', trend: [94.2, 95.1, 95.8, 96.2, 96.5], date: '2026-03' },
+  { id: 'kpi-d1', name: 'OTD Client', category: 'D', unit: '%', target: 98, actual: 95.2, previousMonth: 93.8, dept: 'Logistique', trend: [91.5, 92.8, 93.8, 94.5, 95.2], date: '2026-03' },
+  { id: 'kpi-d2', name: 'Lead Time moyen', category: 'D', unit: 'h', target: 24, actual: 28, previousMonth: 30, dept: 'P2', trend: [35, 33, 30, 29, 28], date: '2026-03' },
+  { id: 'kpi-d3', name: 'OEE Global', category: 'D', unit: '%', target: 85, actual: 78, previousMonth: 75, dept: 'Maintenance', trend: [70, 72, 75, 77, 78], date: '2026-03' },
+  { id: 'kpi-c1', name: 'Coût de non-qualité', category: 'C', unit: 'k€', target: 15, actual: 22, previousMonth: 25, dept: 'Qualité', trend: [32, 28, 25, 23, 22], date: '2026-03' },
+  { id: 'kpi-c2', name: 'Productivité main d\'oeuvre', category: 'C', unit: 'pcs/h', target: 120, actual: 108, previousMonth: 105, dept: 'P1', trend: [98, 100, 105, 107, 108], date: '2026-03' },
+  { id: 'kpi-c3', name: 'Consommation énergie', category: 'C', unit: 'kWh/pcs', target: 2.5, actual: 2.8, previousMonth: 3.0, dept: 'Maintenance', trend: [3.5, 3.3, 3.0, 2.9, 2.8], date: '2026-03' },
+  { id: 'kpi-m1', name: 'Taux absentéisme', category: 'M', unit: '%', target: 3, actual: 4.2, previousMonth: 4.5, dept: 'RH', trend: [5.5, 5.0, 4.5, 4.3, 4.2], date: '2026-03' },
+  { id: 'kpi-m2', name: 'Suggestions améliorations', category: 'M', unit: 'nb', target: 30, actual: 22, previousMonth: 18, dept: 'RH', trend: [10, 14, 18, 20, 22], date: '2026-03' },
+  { id: 'kpi-m3', name: 'Heures formation', category: 'M', unit: 'h', target: 200, actual: 165, previousMonth: 140, dept: 'RH', trend: [80, 100, 140, 155, 165], date: '2026-03' },
+];
+
+export const INITIAL_ACTIONS: Action[] = [
+  { id: 'act-1', title: 'Installer barrières de sécurité zone P1', description: 'Installer des barrières physiques pour protéger les opérateurs', category: 'S', dept: 'P1', owner: 'M. Trabelsi', dueDate: '2026-03-15', status: 'on-track', priority: 'high', progress: 65, createdAt: '2026-02-01' },
+  { id: 'act-2', title: 'Calibration équipements test électrique', description: 'Re-calibrer tous les testeurs électriques', category: 'Q', dept: 'Qualité', owner: 'Mme. Ben Ali', dueDate: '2026-03-10', status: 'at-risk', priority: 'critical', progress: 40, createdAt: '2026-02-05' },
+  { id: 'act-3', title: 'Optimiser flux logistique interne', description: 'Réorganiser le flux de matériaux entre zones', category: 'D', dept: 'Logistique', owner: 'M. Khelifi', dueDate: '2026-03-20', status: 'on-track', priority: 'medium', progress: 55, createdAt: '2026-02-10' },
+  { id: 'act-4', title: 'Réduire consommation énergie compresseurs', description: 'Optimiser les cycles de compression', category: 'C', dept: 'Maintenance', owner: 'M. Sahli', dueDate: '2026-04-01', status: 'not-started', priority: 'medium', progress: 0, createdAt: '2026-02-15' },
+  { id: 'act-5', title: 'Programme de reconnaissance employés', description: 'Mettre en place un programme de reconnaissance mensuel', category: 'M', dept: 'RH', owner: 'Mme. Gharbi', dueDate: '2026-03-25', status: 'on-track', priority: 'low', progress: 80, createdAt: '2026-01-20' },
+  { id: 'act-6', title: 'Mise à jour instructions de travail P2', description: 'Réviser les instructions de travail standardisées', category: 'Q', dept: 'P2', owner: 'M. Bouaziz', dueDate: '2026-03-12', status: 'delayed', priority: 'high', progress: 30, linkedAbnormality: 'abn-1', createdAt: '2026-02-08' },
+];
+
+export const INITIAL_ABNORMALITIES: Abnormality[] = [
+  { id: 'abn-1', title: 'Défaut sertissage connecteur X45', description: 'Taux de défaut élevé sur sertissage du connecteur X45', category: 'Q', dept: 'P2', detectedBy: 'Opérateur Ligne 3', detectedDate: '2026-02-28', severity: 'critical', status: 'investigating', rootCause: 'Usure de l\'outil de sertissage', containmentAction: 'Inspection 100% en cours', linkedActions: ['act-6'] },
+  { id: 'abn-2', title: 'Fuite huile hydraulique presse P1', description: 'Fuite détectée sur la presse hydraulique de la zone P1', category: 'S', dept: 'P1', detectedBy: 'Technicien Maintenance', detectedDate: '2026-03-01', severity: 'high', status: 'contained', containmentAction: 'Zone isolée, bac de rétention installé', linkedActions: [] },
+  { id: 'abn-3', title: 'Retard livraison composants fournisseur A', description: 'Retard de 3 jours sur la livraison de composants critiques', category: 'D', dept: 'Logistique', detectedBy: 'Planificateur', detectedDate: '2026-03-02', severity: 'medium', status: 'open', linkedActions: [] },
+];
+
+export const INITIAL_CI_PROJECTS: CIProject[] = [
+  { id: 'ci-1', title: 'SMED Ligne Coupe C2', description: 'Réduire le temps de changement de série de 45min à 15min', type: 'smed', dept: 'Coupe', leader: 'M. Hamdi', team: ['A. Ben Salem', 'F. Riahi'], startDate: '2026-01-15', targetDate: '2026-04-15', status: 'on-track', savings: 45000, progress: 60, phase: 'improve' },
+  { id: 'ci-2', title: '5S Zone Stockage P3', description: 'Déploiement 5S complet dans la zone de stockage P3', type: '5s', dept: 'P3', leader: 'Mme. Jlassi', team: ['K. Mansour', 'S. Dridi'], startDate: '2026-02-01', targetDate: '2026-05-01', status: 'on-track', savings: 12000, progress: 45, phase: 'measure' },
+  { id: 'ci-3', title: 'Poka-Yoke Assemblage P1', description: 'Installer des détrompeurs sur les postes d\'assemblage critiques', type: 'poka-yoke', dept: 'P1', leader: 'M. Ayari', team: ['N. Chaabane', 'R. Mejri'], startDate: '2026-02-15', targetDate: '2026-06-01', status: 'at-risk', savings: 30000, progress: 25, phase: 'analyze' },
+  { id: 'ci-4', title: 'TPM Presses Hydrauliques', description: 'Mise en place de la maintenance productive totale', type: 'tpm', dept: 'Maintenance', leader: 'M. Sahli', team: ['H. Bouzid', 'A. Ferchichi'], startDate: '2026-01-01', targetDate: '2026-07-01', status: 'on-track', savings: 65000, progress: 35, phase: 'measure' },
+];
+
+export const INITIAL_VSM_STEPS: VSMStep[] = [
+  { id: 'vsm-1', name: 'Réception', cycleTime: 5, changeoverTime: 0, uptime: 99, operators: 2, wip: 50, leadTime: 120, processTime: 5, dept: 'Logistique' },
+  { id: 'vsm-2', name: 'Coupe', cycleTime: 12, changeoverTime: 45, uptime: 85, operators: 4, wip: 200, leadTime: 180, processTime: 12, dept: 'Coupe' },
+  { id: 'vsm-3', name: 'Pré-assemblage', cycleTime: 18, changeoverTime: 15, uptime: 90, operators: 8, wip: 150, leadTime: 240, processTime: 18, dept: 'P1' },
+  { id: 'vsm-4', name: 'Assemblage Final', cycleTime: 25, changeoverTime: 20, uptime: 88, operators: 12, wip: 100, leadTime: 300, processTime: 25, dept: 'P2' },
+  { id: 'vsm-5', name: 'Test Électrique', cycleTime: 8, changeoverTime: 10, uptime: 95, operators: 3, wip: 30, leadTime: 60, processTime: 8, dept: 'Qualité' },
+  { id: 'vsm-6', name: 'Emballage & Expédition', cycleTime: 6, changeoverTime: 5, uptime: 98, operators: 3, wip: 20, leadTime: 45, processTime: 6, dept: 'Logistique' },
+];
+
+export const INITIAL_PROJECTS: Project[] = [
+  {
+    id: 'proj-1',
+    name: 'Automatisation Sertissage Ligne P2',
+    description: 'Remplacement du process de sertissage manuel par un système automatisé pour réduire le temps de cycle et améliorer la qualité',
+    projectType: 'Structural Improvement',
+    category: 'Productivity',
+    area: 'P2 - Ligne 3',
+    dept: 'P2',
+    owner: 'M. Trabelsi',
+    team: ['A. Ben Salem', 'F. Riahi', 'K. Mansour'],
+    startDate: '2026-01-15',
+    endDate: '2026-06-30',
+    status: 'on-track',
+    health: 'green',
+    progress: 45,
+    impactKPI: 'Efficiency',
+    expectedSavings: 120000,
+    realizedSavings: 35000,
+    targetEfficiencyGain: 45,
+    realizedGain: 18,
+    impactType: 'Productivity Gain',
+    returnRate: 280,
+    baselineDescription: 'Manual crimping cycle time = 22 seconds\nHigh operator fatigue\nDefect rate: 1.8%\n3 operators per shift',
+    targetDescription: 'Automated crimping cycle = 12 seconds\nReduced handling and ergonomic risk\nDefect rate target: 0.3%\n1 operator per shift',
+    risks: [
+      { id: 'r1', description: 'Delay in sensor delivery from supplier', level: 'Medium', countermeasure: 'Contact alternative supplier Keyence as backup' },
+      { id: 'r2', description: 'Integration issues with existing MES system', level: 'High', countermeasure: 'Allocate 2 weeks for integration testing phase' },
+    ],
+    actions: [
+      { id: 'pa1', description: 'Finaliser cahier des charges technique', responsible: 'M. Trabelsi', dueDate: '2026-02-15', status: 'Closed' },
+      { id: 'pa2', description: 'Commander équipement automatisé', responsible: 'A. Ben Salem', dueDate: '2026-03-01', status: 'Closed' },
+      { id: 'pa3', description: 'Préparer zone installation', responsible: 'F. Riahi', dueDate: '2026-03-20', status: 'In Progress' },
+      { id: 'pa4', description: 'Former opérateurs au nouveau process', responsible: 'K. Mansour', dueDate: '2026-04-15', status: 'Open' },
+      { id: 'pa5', description: 'Valider qualité production pilote', responsible: 'M. Trabelsi', dueDate: '2026-05-01', status: 'Open' },
+    ],
+    wbsTasks: [
+      { id: 'w1', name: 'Automatisation Sertissage P2', description: 'Projet global', owner: 'M. Trabelsi', startDate: '2026-01-15', endDate: '2026-06-30', progress: 45, status: 'on-track', parentId: null, level: 'project', dependencies: [] },
+      { id: 'w2', name: 'Phase 1 - Étude & Conception', description: 'Analyse et design', owner: 'M. Trabelsi', startDate: '2026-01-15', endDate: '2026-02-28', progress: 100, status: 'completed', parentId: 'w1', level: 'phase', dependencies: [] },
+      { id: 'w3', name: 'Cahier des charges', description: 'Rédaction du CDC technique', owner: 'M. Trabelsi', startDate: '2026-01-15', endDate: '2026-02-01', progress: 100, status: 'completed', parentId: 'w2', level: 'deliverable', dependencies: [] },
+      { id: 'w4', name: 'Étude de faisabilité', description: 'Analyse ROI et faisabilité technique', owner: 'A. Ben Salem', startDate: '2026-02-01', endDate: '2026-02-15', progress: 100, status: 'completed', parentId: 'w2', level: 'deliverable', dependencies: ['w3'] },
+      { id: 'w5', name: 'Validation direction', description: 'Présentation et approbation', owner: 'M. Trabelsi', startDate: '2026-02-15', endDate: '2026-02-28', progress: 100, status: 'completed', parentId: 'w2', level: 'task', dependencies: ['w4'] },
+      { id: 'w6', name: 'Phase 2 - Approvisionnement', description: 'Commande et réception', owner: 'A. Ben Salem', startDate: '2026-03-01', endDate: '2026-04-15', progress: 60, status: 'on-track', parentId: 'w1', level: 'phase', dependencies: ['w2'] },
+      { id: 'w7', name: 'Commande équipements', description: 'Passer commande fournisseurs', owner: 'A. Ben Salem', startDate: '2026-03-01', endDate: '2026-03-10', progress: 100, status: 'completed', parentId: 'w6', level: 'task', dependencies: [] },
+      { id: 'w8', name: 'Réception & inspection', description: 'Contrôle qualité réception', owner: 'F. Riahi', startDate: '2026-03-25', endDate: '2026-04-15', progress: 20, status: 'on-track', parentId: 'w6', level: 'task', dependencies: ['w7'] },
+      { id: 'w9', name: 'Phase 3 - Installation & Mise en route', description: 'Installation physique', owner: 'F. Riahi', startDate: '2026-04-15', endDate: '2026-05-30', progress: 0, status: 'not-started', parentId: 'w1', level: 'phase', dependencies: ['w6'] },
+      { id: 'w10', name: 'Installation mécanique', description: 'Montage de la machine', owner: 'F. Riahi', startDate: '2026-04-15', endDate: '2026-05-01', progress: 0, status: 'not-started', parentId: 'w9', level: 'task', dependencies: [] },
+      { id: 'w11', name: 'Connexion électrique & MES', description: 'Intégration au système', owner: 'A. Ben Salem', startDate: '2026-05-01', endDate: '2026-05-15', progress: 0, status: 'not-started', parentId: 'w9', level: 'task', dependencies: ['w10'] },
+      { id: 'w12', name: 'Phase 4 - Validation', description: 'Tests et qualification', owner: 'M. Trabelsi', startDate: '2026-05-30', endDate: '2026-06-30', progress: 0, status: 'not-started', parentId: 'w1', level: 'phase', dependencies: ['w9'] },
+      { id: 'w13', name: 'Run pilote', description: 'Production pilote 2 semaines', owner: 'K. Mansour', startDate: '2026-05-30', endDate: '2026-06-15', progress: 0, status: 'not-started', parentId: 'w12', level: 'task', dependencies: [] },
+      { id: 'w14', name: 'Qualification process', description: 'PPAP et validation client', owner: 'M. Trabelsi', startDate: '2026-06-15', endDate: '2026-06-30', progress: 0, status: 'not-started', parentId: 'w12', level: 'task', dependencies: ['w13'] },
+    ],
+    sustainmentItems: [
+      { id: 'sus1', description: 'Instruction de travail standardisée mise à jour', standardOwner: 'K. Mansour', nextAuditDate: '2026-07-15', completed: false },
+      { id: 'sus2', description: 'Formation opérateurs validée (certification)', standardOwner: 'RH - Mme. Gharbi', nextAuditDate: '2026-07-01', completed: false },
+      { id: 'sus3', description: 'Layered audit planifié (mensuel)', standardOwner: 'M. Trabelsi', nextAuditDate: '2026-08-01', completed: false },
+    ],
+  },
+  {
+    id: 'proj-2',
+    name: 'Réduction Scrap Rate Ligne Coupe',
+    description: 'Projet Kaizen pour réduire le taux de rebut sur la ligne de coupe de 2.1% à 0.8%',
+    projectType: 'Kaizen',
+    category: 'Quality',
+    area: 'Coupe - Ligne C2',
+    dept: 'Coupe',
+    owner: 'Mme. Ben Ali',
+    team: ['S. Dridi', 'H. Bouzid'],
+    startDate: '2026-02-01',
+    endDate: '2026-05-31',
+    status: 'on-track',
+    health: 'green',
+    progress: 55,
+    impactKPI: 'Scrap Rate',
+    expectedSavings: 65000,
+    realizedSavings: 28000,
+    targetEfficiencyGain: 62,
+    realizedGain: 30,
+    impactType: 'Quality Cost Reduction',
+    returnRate: 520,
+    baselineDescription: 'Scrap rate: 2.1%\nMain causes: blade wear, wrong settings\nCost of scrap: 8500€/month',
+    targetDescription: 'Scrap rate target: 0.8%\nAutomatic blade monitoring\nPreventive maintenance schedule\nCost target: 2800€/month',
+    risks: [
+      { id: 'r3', description: 'Resistance to change from operators', level: 'Low', countermeasure: 'Training sessions and change management workshops' },
+    ],
+    actions: [
+      { id: 'pa6', description: 'Analyse Pareto des causes de rebut', responsible: 'Mme. Ben Ali', dueDate: '2026-02-20', status: 'Closed' },
+      { id: 'pa7', description: 'Installer capteurs usure lames', responsible: 'S. Dridi', dueDate: '2026-03-15', status: 'In Progress' },
+      { id: 'pa8', description: 'Créer plan maintenance préventive', responsible: 'H. Bouzid', dueDate: '2026-04-01', status: 'Open' },
+    ],
+    wbsTasks: [
+      { id: 'w20', name: 'Réduction Scrap Coupe', description: '', owner: 'Mme. Ben Ali', startDate: '2026-02-01', endDate: '2026-05-31', progress: 55, status: 'on-track', parentId: null, level: 'project', dependencies: [] },
+      { id: 'w21', name: 'Analyse & Diagnostic', description: '', owner: 'Mme. Ben Ali', startDate: '2026-02-01', endDate: '2026-02-28', progress: 100, status: 'completed', parentId: 'w20', level: 'phase', dependencies: [] },
+      { id: 'w22', name: 'Implémentation Solutions', description: '', owner: 'S. Dridi', startDate: '2026-03-01', endDate: '2026-04-30', progress: 40, status: 'on-track', parentId: 'w20', level: 'phase', dependencies: ['w21'] },
+      { id: 'w23', name: 'Validation & Sustain', description: '', owner: 'Mme. Ben Ali', startDate: '2026-05-01', endDate: '2026-05-31', progress: 0, status: 'not-started', parentId: 'w20', level: 'phase', dependencies: ['w22'] },
+    ],
+    sustainmentItems: [
+      { id: 'sus4', description: 'Checklist changement de lame standardisée', standardOwner: 'S. Dridi', nextAuditDate: '2026-06-15', completed: false },
+    ],
+  },
+  {
+    id: 'proj-3',
+    name: 'Optimisation Flux Logistique Interne',
+    description: 'Réorganisation du flux de matériaux entre zones de stockage et lignes de production',
+    projectType: 'CI',
+    category: 'Cost',
+    area: 'Magasin Central',
+    dept: 'Logistique',
+    owner: 'M. Khelifi',
+    team: ['N. Chaabane', 'R. Mejri'],
+    startDate: '2026-01-15',
+    endDate: '2026-05-15',
+    status: 'at-risk',
+    health: 'orange',
+    progress: 35,
+    impactKPI: 'Lead Time',
+    expectedSavings: 45000,
+    realizedSavings: 8000,
+    targetEfficiencyGain: 30,
+    realizedGain: 10,
+    impactType: 'Logistics Cost Reduction',
+    returnRate: 180,
+    baselineDescription: 'Internal lead time: 4.5 hours\nMultiple handling steps\nForklift utilization: 85%\nWaiting time: 45 min average',
+    targetDescription: 'Internal lead time target: 2.5 hours\nDirect flow paths\nForklift utilization target: 60%\nWaiting time: 10 min',
+    risks: [
+      { id: 'r4', description: 'Layout change may disrupt production', level: 'High', countermeasure: 'Implement changes during planned maintenance windows' },
+      { id: 'r5', description: 'Budget overrun on racking system', level: 'Medium', countermeasure: 'Get 3 quotes and negotiate volume discount' },
+    ],
+    actions: [
+      { id: 'pa9', description: 'Cartographie flux actuels (spaghetti diagram)', responsible: 'M. Khelifi', dueDate: '2026-02-10', status: 'Closed' },
+      { id: 'pa10', description: 'Design nouveau layout', responsible: 'N. Chaabane', dueDate: '2026-03-15', status: 'In Progress' },
+      { id: 'pa11', description: 'Commander nouveau système de rayonnage', responsible: 'R. Mejri', dueDate: '2026-04-01', status: 'Open' },
+    ],
+    wbsTasks: [
+      { id: 'w30', name: 'Optimisation Flux Logistique', description: '', owner: 'M. Khelifi', startDate: '2026-01-15', endDate: '2026-05-15', progress: 35, status: 'at-risk', parentId: null, level: 'project', dependencies: [] },
+      { id: 'w31', name: 'Analyse Situation Actuelle', description: '', owner: 'M. Khelifi', startDate: '2026-01-15', endDate: '2026-02-28', progress: 100, status: 'completed', parentId: 'w30', level: 'phase', dependencies: [] },
+      { id: 'w32', name: 'Design & Planification', description: '', owner: 'N. Chaabane', startDate: '2026-03-01', endDate: '2026-03-31', progress: 50, status: 'at-risk', parentId: 'w30', level: 'phase', dependencies: ['w31'] },
+      { id: 'w33', name: 'Implémentation', description: '', owner: 'R. Mejri', startDate: '2026-04-01', endDate: '2026-05-15', progress: 0, status: 'not-started', parentId: 'w30', level: 'phase', dependencies: ['w32'] },
+    ],
+    sustainmentItems: [],
+  },
+  {
+    id: 'proj-4',
+    name: 'Poste Ergonomique Assemblage P1',
+    description: 'Amélioration ergonomique des postes de travail pour réduire les TMS',
+    projectType: 'Kaizen',
+    category: 'Ergonomics',
+    area: 'P1 - Zone Assemblage',
+    dept: 'P1',
+    owner: 'M. Ayari',
+    team: ['Médecin du travail'],
+    startDate: '2026-02-15',
+    endDate: '2026-04-30',
+    status: 'on-track',
+    health: 'green',
+    progress: 70,
+    impactKPI: 'Absenteeism Rate',
+    expectedSavings: 25000,
+    realizedSavings: 15000,
+    targetEfficiencyGain: 40,
+    realizedGain: 28,
+    impactType: 'Ergonomic Improvement',
+    returnRate: 320,
+    baselineDescription: 'Standing work 8h/shift\nRepetitive arm movements\nAbsenteeism related: 3.5%',
+    targetDescription: 'Adjustable height workstations\nRotation schedule implemented\nAbsenteeism target: 1.5%',
+    risks: [],
+    actions: [
+      { id: 'pa12', description: 'Évaluation ergonomique RULA', responsible: 'Médecin du travail', dueDate: '2026-03-01', status: 'Closed' },
+      { id: 'pa13', description: 'Commander postes réglables', responsible: 'M. Ayari', dueDate: '2026-03-15', status: 'Closed' },
+      { id: 'pa14', description: 'Installation et formation', responsible: 'M. Ayari', dueDate: '2026-04-15', status: 'In Progress' },
+    ],
+    wbsTasks: [
+      { id: 'w40', name: 'Ergonomie P1', description: '', owner: 'M. Ayari', startDate: '2026-02-15', endDate: '2026-04-30', progress: 70, status: 'on-track', parentId: null, level: 'project', dependencies: [] },
+      { id: 'w41', name: 'Évaluation', description: '', owner: 'Médecin du travail', startDate: '2026-02-15', endDate: '2026-03-01', progress: 100, status: 'completed', parentId: 'w40', level: 'phase', dependencies: [] },
+      { id: 'w42', name: 'Implémentation', description: '', owner: 'M. Ayari', startDate: '2026-03-01', endDate: '2026-04-30', progress: 60, status: 'on-track', parentId: 'w40', level: 'phase', dependencies: ['w41'] },
+    ],
+    sustainmentItems: [
+      { id: 'sus5', description: 'Plan de rotation affiché et respecté', standardOwner: 'Chef de ligne P1', nextAuditDate: '2026-05-15', completed: false },
+    ],
+  },
+  {
+    id: 'proj-5',
+    name: 'Sécurisation Zone Stockage Chimiques',
+    description: 'Mise en conformité de la zone de stockage des produits chimiques',
+    projectType: 'CI',
+    category: 'Safety',
+    area: 'Magasin Chimique',
+    dept: 'HSE',
+    owner: 'M. Sahli',
+    team: ['Responsable HSE'],
+    startDate: '2026-01-01',
+    endDate: '2026-03-31',
+    status: 'delayed',
+    health: 'red',
+    progress: 60,
+    impactKPI: 'Safety Index',
+    expectedSavings: 15000,
+    realizedSavings: 5000,
+    targetEfficiencyGain: 100,
+    realizedGain: 60,
+    impactType: 'Safety Compliance',
+    returnRate: 150,
+    baselineDescription: 'Non-compliant storage\nMissing safety data sheets\nNo spill containment',
+    targetDescription: 'Full regulatory compliance\nDigital SDS system\nSpill containment installed',
+    risks: [
+      { id: 'r6', description: 'Regulatory audit before completion', level: 'High', countermeasure: 'Prioritize visible safety improvements first' },
+    ],
+    actions: [
+      { id: 'pa15', description: 'Audit situation actuelle', responsible: 'M. Sahli', dueDate: '2026-01-20', status: 'Closed' },
+      { id: 'pa16', description: 'Commander bacs de rétention', responsible: 'Responsable HSE', dueDate: '2026-02-15', status: 'Closed' },
+      { id: 'pa17', description: 'Installer signalétique et ventilation', responsible: 'M. Sahli', dueDate: '2026-03-15', status: 'In Progress' },
+    ],
+    wbsTasks: [
+      { id: 'w50', name: 'Sécurisation Chimiques', description: '', owner: 'M. Sahli', startDate: '2026-01-01', endDate: '2026-03-31', progress: 60, status: 'delayed', parentId: null, level: 'project', dependencies: [] },
+    ],
+    sustainmentItems: [
+      { id: 'sus6', description: 'Audit HSE mensuel zone chimique', standardOwner: 'M. Sahli', nextAuditDate: '2026-04-15', completed: false },
+    ],
+  },
+];
+
+export const INITIAL_KAIZEN_CARDS: KaizenCard[] = [
+  {
+    id: 'kz-1',
+    title: 'Cylindre pneumatique maintien branches ESCR/ESCL',
+    plantName: 'LEONI Menzel Hayet',
+    plantManager: 'M. Directeur Usine',
+    opexTeam: ['M. Trabelsi', 'Mme. Ben Ali'],
+    submissionDate: '2026-01-20',
+    category: 'Productivity',
+    area: 'P2 - Ligne 3',
+    ideaOwner: 'A. Ben Salem',
+    problemDescription: 'Missing pneumatic cylinder for maintaining ESCR / ESCL branches during assembly. High operator handling required to hold branches in position manually. Causes fatigue and increases cycle time.',
+    beforePhoto: '',
+    cycleTimeBefore: 2.9,
+    solutionDescription: 'Pneumatic cylinder installed for automatic branch maintenance during assembly. Reduced manual handling significantly. Operator can now focus on crimping operations without holding branches.',
+    afterPhoto: '',
+    cycleTimeAfter: 2.8,
+    timeSaving: 0.1,
+    productivityGain: 3.5,
+    qualityImprovement: 'Reduced misalignment defects by 15%',
+    ergonomicImprovement: 'Eliminated repetitive arm strain from branch holding',
+    costSaving: 8500,
+    implementationDate: '2026-02-15',
+    responsiblePerson: 'A. Ben Salem',
+    teamMembers: ['F. Riahi', 'K. Mansour'],
+    areaAffected: 'P2 Assembly Zone 3',
+    equipmentUsed: 'Festo DSBC-40 Pneumatic Cylinder',
+    supervisorApproval: true,
+    opexApproval: true,
+    plantManagerValidation: true,
+    status: 'Best Kaizen',
+    impactLevel: 'Medium',
+    points: 50,
+    comments: 'Excellent improvement. To be replicated on P1 and P4 lines.',
+  },
+  {
+    id: 'kz-2',
+    title: 'Guide visuel positionnement connecteurs',
+    plantName: 'LEONI Menzel Hayet',
+    plantManager: 'M. Directeur Usine',
+    opexTeam: ['M. Trabelsi'],
+    submissionDate: '2026-02-05',
+    category: 'Quality',
+    area: 'P1 - Poste Assemblage 7',
+    ideaOwner: 'N. Chaabane',
+    problemDescription: 'Frequent connector insertion errors at assembly station 7. Operators confuse similar-looking connectors (C14 and C16), leading to rework and potential customer complaints.',
+    beforePhoto: '',
+    cycleTimeBefore: 3.2,
+    solutionDescription: 'Color-coded visual guide installed at workstation with Poka-Yoke fixture that prevents wrong connector insertion. LED indicator confirms correct placement.',
+    afterPhoto: '',
+    cycleTimeAfter: 2.9,
+    timeSaving: 0.3,
+    productivityGain: 9.4,
+    qualityImprovement: 'Connector errors reduced from 2.3% to 0.1%',
+    ergonomicImprovement: 'Reduced cognitive load on operators',
+    costSaving: 12000,
+    implementationDate: '2026-02-28',
+    responsiblePerson: 'N. Chaabane',
+    teamMembers: ['R. Mejri'],
+    areaAffected: 'P1 Assembly Station 7',
+    equipmentUsed: 'Custom Poka-Yoke jig, Keyence sensor',
+    supervisorApproval: true,
+    opexApproval: true,
+    plantManagerValidation: false,
+    status: 'Implemented',
+    impactLevel: 'Major',
+    points: 75,
+    comments: '',
+  },
+  {
+    id: 'kz-3',
+    title: 'Réorganisation poste coupe fil',
+    plantName: 'LEONI Menzel Hayet',
+    plantManager: 'M. Directeur Usine',
+    opexTeam: ['Mme. Ben Ali'],
+    submissionDate: '2026-02-18',
+    category: 'Ergonomics',
+    area: 'Coupe - Machine C2',
+    ideaOwner: 'S. Dridi',
+    problemDescription: 'Wire cutting station layout forces operator to reach across machine for tool changes. Long reach distance of 80cm causes back strain. 3 reported near-misses in January.',
+    beforePhoto: '',
+    cycleTimeBefore: 1.5,
+    solutionDescription: 'Workstation redesigned with tool carousel within 30cm reach. Shadow board installed for tool organization. Anti-fatigue mat added.',
+    afterPhoto: '',
+    cycleTimeAfter: 1.2,
+    timeSaving: 0.3,
+    productivityGain: 20,
+    qualityImprovement: 'Tool damage reduced by 40%',
+    ergonomicImprovement: 'Reach distance reduced from 80cm to 30cm. Back strain eliminated.',
+    costSaving: 5500,
+    implementationDate: '',
+    responsiblePerson: 'S. Dridi',
+    teamMembers: ['H. Bouzid'],
+    areaAffected: 'Coupe Zone C2',
+    equipmentUsed: 'Custom tool carousel, Shadow board',
+    supervisorApproval: true,
+    opexApproval: false,
+    plantManagerValidation: false,
+    status: 'Under Review',
+    impactLevel: 'Medium',
+    points: 30,
+    comments: 'Awaiting OPEX validation for budget approval.',
+  },
+  {
+    id: 'kz-4',
+    title: 'Système Kanban bacs composants',
+    plantName: 'LEONI Menzel Hayet',
+    plantManager: 'M. Directeur Usine',
+    opexTeam: ['M. Trabelsi', 'Mme. Ben Ali'],
+    submissionDate: '2026-03-01',
+    category: 'Cost',
+    area: 'Logistique - Zone Approvisionnement',
+    ideaOwner: 'M. Khelifi',
+    problemDescription: 'Overstock of components at line-side causing space issues and expired materials. No visual control system in place. Average stock level 3x higher than needed.',
+    beforePhoto: '',
+    cycleTimeBefore: 0,
+    solutionDescription: 'Two-bin Kanban system implemented with visual min/max indicators. Automated reorder alerts via barcode scanning.',
+    afterPhoto: '',
+    cycleTimeAfter: 0,
+    timeSaving: 0,
+    productivityGain: 0,
+    qualityImprovement: 'Zero expired material incidents',
+    ergonomicImprovement: 'Less material searching and movement',
+    costSaving: 22000,
+    implementationDate: '',
+    responsiblePerson: 'M. Khelifi',
+    teamMembers: ['N. Chaabane'],
+    areaAffected: 'All production lines',
+    equipmentUsed: 'Kanban cards, barcode scanner, colored bins',
+    supervisorApproval: false,
+    opexApproval: false,
+    plantManagerValidation: false,
+    status: 'Submitted',
+    impactLevel: 'Major',
+    points: 10,
+    comments: '',
+  },
+];
+
+export function initializeData() {
+  const kpis = localStorage.getItem('leoni-kpis-sim');
+  if (!kpis || JSON.parse(kpis).length === 0) {
+    localStorage.setItem('leoni-kpis-sim', JSON.stringify(INITIAL_KPIS));
+  }
+  const actions = localStorage.getItem('leoni-actions-sim');
+  if (!actions || JSON.parse(actions).length === 0) {
+    localStorage.setItem('leoni-actions-sim', JSON.stringify(INITIAL_ACTIONS));
+  }
+  const abnormalities = localStorage.getItem('leoni-abnormalities-sim');
+  if (!abnormalities || JSON.parse(abnormalities).length === 0) {
+    localStorage.setItem('leoni-abnormalities-sim', JSON.stringify(INITIAL_ABNORMALITIES));
+  }
+  const ciProjects = localStorage.getItem('leoni-ci-projects');
+  if (!ciProjects || JSON.parse(ciProjects).length === 0) {
+    localStorage.setItem('leoni-ci-projects', JSON.stringify(INITIAL_CI_PROJECTS));
+  }
+  const vsmCurrent = localStorage.getItem('leoni-vsm-current');
+  if (!vsmCurrent || JSON.parse(vsmCurrent).length === 0) {
+    localStorage.setItem('leoni-vsm-current', JSON.stringify(INITIAL_VSM_STEPS));
+  }
+  const projects = localStorage.getItem('leoni-projects');
+  const needsRefresh = (() => {
+    if (!projects) return true;
+    try {
+      const parsed = JSON.parse(projects);
+      if (parsed.length === 0) return true;
+      if (!parsed[0].projectType) return true;
+      return false;
+    } catch { return true; }
+  })();
+  if (needsRefresh) {
+    localStorage.setItem('leoni-projects', JSON.stringify(INITIAL_PROJECTS));
+  }
+  const kaizenCards = localStorage.getItem('leoni-kaizen-cards');
+  if (!kaizenCards || JSON.parse(kaizenCards).length === 0) {
+    localStorage.setItem('leoni-kaizen-cards', JSON.stringify(INITIAL_KAIZEN_CARDS));
+  }
+}
