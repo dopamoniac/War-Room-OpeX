@@ -1,4 +1,6 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import { runAIEngine } from '@/lib/ai-engine';
+import AIInsightCard from '@/components/ai-insight-card';
 import type { Lang, KPIEntry, SQDCMCategory, Dept } from '@shared/schema';
 import { SQDCM_LABELS, SQDCM_CATEGORIES, DEPARTMENTS } from '@shared/schema';
 import { useTranslate } from '@/lib/translations';
@@ -19,7 +21,7 @@ import {
 import { toPng, toSvg } from 'html-to-image';
 import jsPDF from 'jspdf';
 
-interface KPIStudioProps { lang: Lang; }
+interface KPIStudioProps { lang: Lang; onOpenAI?: () => void; }
 
 type ChartType = 'bar' | 'line' | 'pie' | 'area' | 'stacked';
 
@@ -507,10 +509,11 @@ function ChartCard({ cfg, kpis, onUpdate, onRemove }: {
   );
 }
 
-export default function KPIStudio({ lang }: KPIStudioProps) {
+export default function KPIStudio({ lang, onOpenAI }: KPIStudioProps) {
   const tr = useTranslate(lang);
   const [kpis, setKpis] = useState<KPIEntry[]>([]);
   const [tab, setTab] = useState<'overview' | 'studio' | 'data' | 'report'>('overview');
+  const aiOutput = useMemo(() => runAIEngine(), []);
   const [filterCat, setFilterCat] = useState<SQDCMCategory | 'all'>('all');
   const [filterDept, setFilterDept] = useState<Dept | 'all'>('all');
   const [showForm, setShowForm] = useState(false);
@@ -579,6 +582,7 @@ export default function KPIStudio({ lang }: KPIStudioProps) {
 
   return (
     <div className="space-y-5" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      <AIInsightCard module="kpi" output={aiOutput} onOpenCopilot={onOpenAI} />
       <div className="flex items-center justify-between">
         <div>
           <h1 data-testid="text-kpi-title" className="text-2xl font-bold text-white">{tr('kpi.title')}</h1>

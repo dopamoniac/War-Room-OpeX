@@ -3,6 +3,8 @@ import type { Lang, KPIEntry, Action, Abnormality, SQDCMCategory, ComputedKPI } 
 import { SQDCM_LABELS, SQDCM_CATEGORIES } from '@shared/schema';
 import { useTranslate } from '@/lib/translations';
 import { storage } from '@/lib/storage';
+import { runAIEngine } from '@/lib/ai-engine';
+import AIInsightCard from '@/components/ai-insight-card';
 import {
   Shield, CheckCircle, Clock, DollarSign, Users,
   TrendingUp, TrendingDown, AlertTriangle, Activity, Target, BarChart3
@@ -28,13 +30,15 @@ function computeKPI(kpi: KPIEntry): ComputedKPI {
 
 interface WarRoomProps {
   lang: Lang;
+  onOpenAI?: () => void;
 }
 
-export default function WarRoom({ lang }: WarRoomProps) {
+export default function WarRoom({ lang, onOpenAI }: WarRoomProps) {
   const tr = useTranslate(lang);
   const [kpis, setKpis] = useState<KPIEntry[]>([]);
   const [actions, setActions] = useState<Action[]>([]);
   const [abnormalities, setAbnormalities] = useState<Abnormality[]>([]);
+  const aiOutput = useMemo(() => runAIEngine(), []);
 
   useEffect(() => {
     setKpis(storage.getKPIs());
@@ -83,6 +87,7 @@ export default function WarRoom({ lang }: WarRoomProps) {
 
   return (
     <div className="space-y-6" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      <AIInsightCard module="warroom" output={aiOutput} onOpenCopilot={onOpenAI} />
       <div className="flex items-center justify-between">
         <div>
           <h1 data-testid="text-warroom-title" className="text-2xl font-bold text-white tracking-tight">

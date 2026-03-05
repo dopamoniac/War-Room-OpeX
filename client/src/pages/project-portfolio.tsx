@@ -1,5 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'wouter';
+import { runAIEngine } from '@/lib/ai-engine';
+import AIInsightCard from '@/components/ai-insight-card';
 import type { Lang, Project, ProjectCategory } from '@shared/schema';
 import { PROJECT_CATEGORIES, CATEGORY_COLORS, HEALTH_COLORS, STATUS_COLORS } from '@shared/schema';
 import { useTranslate } from '@/lib/translations';
@@ -14,13 +16,15 @@ import {
 
 interface ProjectPortfolioProps {
   lang: Lang;
+  onOpenAI?: () => void;
 }
 
-export default function ProjectPortfolio({ lang }: ProjectPortfolioProps) {
+export default function ProjectPortfolio({ lang, onOpenAI }: ProjectPortfolioProps) {
   const tr = useTranslate(lang);
   const [, navigate] = useLocation();
   const [tab, setTab] = useState<'overview' | 'projects'>('overview');
   const [projects, setProjects] = useState<Project[]>([]);
+  const aiOutput = useMemo(() => runAIEngine(), []);
   const [search, setSearch] = useState('');
   const [filterCat, setFilterCat] = useState<ProjectCategory | 'all'>('all');
   const [showForm, setShowForm] = useState(false);
@@ -112,6 +116,7 @@ export default function ProjectPortfolio({ lang }: ProjectPortfolioProps) {
 
   return (
     <div className="space-y-6" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      <AIInsightCard module="portfolio" output={aiOutput} onOpenCopilot={onOpenAI} />
       <div className="flex items-center justify-between">
         <div>
           <h1 data-testid="text-portfolio-title" className="text-2xl font-bold text-white">

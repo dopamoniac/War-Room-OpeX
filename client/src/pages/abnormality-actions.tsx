@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { runAIEngine } from '@/lib/ai-engine';
+import AIInsightCard from '@/components/ai-insight-card';
 import type {
   Lang, Action, Abnormality, SQDCMCategory, Dept, Priority, Status,
   A3Data, A3PDCAItem, A3PDCAPhase, A3ParetoEntry, A3IshikawaBone, A3TimelineEvent,
@@ -20,7 +22,7 @@ import {
 import { toPng } from 'html-to-image';
 import jsPDF from 'jspdf';
 
-interface AbnormalityActionsProps { lang: Lang; }
+interface AbnormalityActionsProps { lang: Lang; onOpenAI?: () => void; }
 
 const PRIORITY_COLORS: Record<Priority, string> = {
   critical: 'bg-red-500/20 text-red-400 border-red-500/20',
@@ -795,9 +797,10 @@ function InvestigationPanel({ abn, allAbnormalities, onSave }: {
   );
 }
 
-export default function AbnormalityActions({ lang }: AbnormalityActionsProps) {
+export default function AbnormalityActions({ lang, onOpenAI }: AbnormalityActionsProps) {
   const tr = useTranslate(lang);
   const [tab, setTab] = useState<'abnormalities' | 'actions'>('abnormalities');
+  const aiOutput = useMemo(() => runAIEngine(), []);
   const [abnormalities, setAbnormalities] = useState<Abnormality[]>([]);
   const [actions, setActions] = useState<Action[]>([]);
   const [showAbnForm, setShowAbnForm] = useState(false);
@@ -859,6 +862,7 @@ export default function AbnormalityActions({ lang }: AbnormalityActionsProps) {
 
   return (
     <div className="space-y-6" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      <AIInsightCard module="abnormality" output={aiOutput} onOpenCopilot={onOpenAI} />
       <div className="flex items-center justify-between">
         <div>
           <h1 data-testid="text-abn-title" className="text-2xl font-bold text-white">{tr('abnormality.title')}</h1>

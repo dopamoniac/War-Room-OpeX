@@ -1,0 +1,192 @@
+You are enhancing an existing industrial dashboard called **LEONI OPEX War Room**.
+The dashboard already contains modules:
+- War Room (SQDCM)
+- KPI Studio
+- Abnormalities & Actions (QQOQCCP, Pareto, Ishikawa, 5Why, PDCA)
+- CI / Kaizen Hub
+- VSM Studio (Poster / Etat Actuel / Etat Futur)
+- Portfolio Projects (Overview / WBS / Gantt)
+- Reporting Center
+
+IMPORTANT RULES:
+- Do NOT rebuild the entire system.
+- Do NOT change navigation or visual theme.
+- Do NOT remove existing features.
+- Only ADD an AI layer that enhances decision-making: recommendations, alerts, auto-generated content, smart workflows.
+
+GOAL:
+Create an “AI OPEX Co-Pilot” integrated across ALL modules.
+It must help supervisors and managers during daily meetings and continuous improvement.
+
+------------------------------------------------
+A) GLOBAL AI EXPERIENCE (IN EVERY MODULE)
+
+Add a global AI assistant panel accessible everywhere:
+- A small “AI” button on the top bar opens a side panel.
+- The assistant can:
+  1) Explain what is happening (insights)
+  2) Recommend next actions (next best action)
+  3) Create/prepare artifacts (draft abnormality, draft kaizen, draft report)
+  4) Trigger alerts and reminders
+
+Add “AI Suggestions” blocks inside each module (non-intrusive, small cards).
+
+Add a global “AI Alerts Center” accessible from the top bar:
+- shows active alerts (red/orange/yellow)
+- each alert has “Reason”, “Impact”, “Recommended action”, “Owner”, “Deadline”
+- allow acknowledge / snooze / assign
+
+------------------------------------------------
+B) AI IN WAR ROOM (SQDCM)
+
+Add AI-driven daily meeting support:
+- Automatically summarize yesterday vs today for SQDCM KPIs.
+- Detect which KPI is abnormal (red/orange) and propose:
+  - likely causes
+  - immediate containment actions
+  - who should be assigned
+  - what decision is required
+
+Add “Today’s Top 3 Risks” AI card:
+- ranked by impact on delivery/quality/cost
+
+Add “Decision Support” AI card:
+- “If we do nothing, impact is…”
+- “Recommended action is…”
+
+------------------------------------------------
+C) AI IN KPI STUDIO (Smart KPI Analytics)
+
+Add AI insights for any KPI chart:
+- Detect trend shifts, spikes, outliers
+- Explain why it changed using available context (line/shift/area/abnormalities)
+- Recommend what KPI to watch next
+
+Add “Smart Alerts on KPIs”:
+- threshold alert
+- abnormal pattern alert (sudden change)
+- stability alert (SPC-like: repeated drift)
+
+Add “Chart Recommendations”:
+- AI suggests the best chart type for the KPI (bar/line/area/pie/stacked)
+- suggests the right aggregation (daily/weekly/monthly)
+
+------------------------------------------------
+D) AI IN ABNORMALITIES & ACTIONS (Problem Solving Assistant)
+
+When an abnormality is created, AI assists with:
+1) Auto-fill QQOQCCP draft (based on selected line/shift, KPI impacted, description)
+2) Suggest Pareto categories for that problem type
+3) Suggest Ishikawa causes under 6M (as hypotheses)
+4) Suggest 5Why chain draft (editable)
+5) Recommend PDCA actions (containment + corrective + preventive)
+
+Add “AI Root Cause Confidence” indicator:
+- Low / Medium / High (based on evidence completeness)
+
+Add “Recurrence Detection”:
+- if similar abnormality happened before, AI links it and proposes reuse of solutions.
+
+Add “Smart Action Quality Check”:
+- warns if actions are vague (ex: “check the machine”)
+- suggests SMART action wording (clear owner, deadline, measurable output)
+
+------------------------------------------------
+E) AI IN KAIZEN HUB (Kaizen Accelerator)
+
+For any Kaizen idea or Kaizen card:
+- AI helps write the problem and solution clearly (before/after bullets)
+- AI suggests impact calculation fields (time saving, productivity, cost saving)
+- AI checks if evidence is missing (photos, measurements)
+- AI suggests sustainment checklist items (SOP update, training, audit)
+
+Add “Kaizen Recommendation” engine:
+- From recurring abnormalities and VSM bottlenecks, AI proposes Kaizen candidates.
+- Auto-generate a Kaizen Card draft (not final) with placeholders.
+
+Add “Recognition Suggestions”:
+- identify high-impact Kaizen for monthly recognition.
+
+------------------------------------------------
+F) AI IN VSM STUDIO (Lean Waste Detector + Future State Generator)
+
+In Etat Actuel:
+- AI detects Lean wastes:
+  Inventory, Waiting, Bottleneck (CT>Takt), Defects (scrap), Low uptime.
+- Highlight problematic steps and list them in an “AI Waste Panel”.
+- Provide improvement suggestions:
+  Kanban, balancing, batch reduction, layout improvements, standard work.
+
+In Etat Futur:
+- AI can propose a future state scenario:
+  lower WIP, balanced CT, pull system
+- Provide “Current vs Future comparison”:
+  Lead Time, Process Time, PCE, Inventory reduction
+
+Add “Auto Kaizen from VSM” option:
+- AI converts the top waste into a Kaizen draft.
+
+------------------------------------------------
+G) AI IN PORTFOLIO PROJECTS (Project Governance Assistant)
+
+In Portfolio overview:
+- AI highlights projects at risk (schedule slip, no progress, overdue tasks)
+- AI recommends which projects to prioritize based on ROI + impact
+
+In Project details:
+- AI suggests WBS breakdown from project objectives
+- AI suggests realistic task durations & dependencies
+- AI highlights critical path risks in Gantt
+- AI writes weekly project status summary automatically (for management)
+
+Add “AI Risk Radar”:
+- detect schedule risk, resource risk, dependency risk
+- propose mitigation actions
+
+------------------------------------------------
+H) AI IN REPORTING CENTER (Auto Reports)
+
+Add one-click AI report generation:
+- Daily DPM summary
+- Weekly OPEX report
+- Monthly management report
+
+Reports must include:
+- KPI highlights + anomalies
+- major abnormalities with status
+- kaizen achievements
+- project portfolio progress
+- VSM insights (if updated)
+
+AI must produce:
+- executive summary
+- key numbers
+- recommendations for next week
+- action follow-ups
+
+------------------------------------------------
+I) GOVERNANCE RULES (AI MUST FOLLOW)
+
+AI outputs must be:
+- actionable (owner + deadline suggestion)
+- transparent (why this recommendation)
+- aligned with Lean logic (SQDCM, PDCA, RCA)
+- never auto-close problems; always require human validation
+
+AI must work as “assistant” not decision-maker:
+- propose, not impose
+- allow user to accept/edit
+
+------------------------------------------------
+DELIVERABLES
+
+Provide:
+1) A list of AI features per module (as above)
+2) Exact UI placement for “AI Suggestions” blocks in each module
+3) The alert types and triggers (KPI threshold, trend shift, recurrence, overdue actions, project risk)
+4) Example AI outputs for each module (short samples)
+5) A minimal step-by-step rollout plan:
+   Phase 1: Alerts + suggestions (read-only)
+   Phase 2: Draft generation (QQOQCCP/Kaizen/Reports)
+   Phase 3: Smart scenario (VSM future state / project planning)
+Do not rebuild the system. Only enhance it.

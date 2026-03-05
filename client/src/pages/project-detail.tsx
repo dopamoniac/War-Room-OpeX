@@ -1,5 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useLocation } from 'wouter';
+import { runAIEngine } from '@/lib/ai-engine';
+import AIInsightCard from '@/components/ai-insight-card';
 import type { Lang, Project, WBSTask, ProjectAction, ProjectRisk, ProjectActionStatus, Status, WBSLevel, DependencyType } from '@shared/schema';
 import { HEALTH_COLORS } from '@shared/schema';
 import { storage } from '@/lib/storage';
@@ -12,11 +14,13 @@ import {
 interface ProjectDetailProps {
   id: string;
   lang: Lang;
+  onOpenAI?: () => void;
 }
 
-export default function ProjectDetail({ id, lang }: ProjectDetailProps) {
+export default function ProjectDetail({ id, lang, onOpenAI }: ProjectDetailProps) {
   const [, navigate] = useLocation();
   const [project, setProject] = useState<Project | null>(null);
+  const aiOutput = useMemo(() => runAIEngine(), []);
   const [tab, setTab] = useState<'overview' | 'wbs' | 'gantt'>('overview');
 
   useEffect(() => {
@@ -42,6 +46,7 @@ export default function ProjectDetail({ id, lang }: ProjectDetailProps) {
 
   return (
     <div className="space-y-6" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      <AIInsightCard module="project-detail" output={aiOutput} onOpenCopilot={onOpenAI} />
       <div className="flex items-center gap-3">
         <button data-testid="button-back" onClick={() => navigate('/portfolio')} className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-colors">
           <ArrowLeft size={18} />

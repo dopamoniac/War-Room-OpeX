@@ -1,4 +1,6 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import { runAIEngine } from '@/lib/ai-engine';
+import AIInsightCard from '@/components/ai-insight-card';
 import type { Lang, VSMStep, VSMContext, Dept } from '@shared/schema';
 import { DEPARTMENTS } from '@shared/schema';
 import { useTranslate } from '@/lib/translations';
@@ -7,6 +9,7 @@ import { Plus, X, Save, ArrowRight, Users, Settings, Printer, ZoomIn, ZoomOut, M
 
 interface VSMStudioProps {
   lang: Lang;
+  onOpenAI?: () => void;
 }
 
 interface PosterStep {
@@ -823,9 +826,10 @@ const wasteIcons: Record<WasteItem['type'], { icon: typeof AlertTriangle; color:
   'high-scrap': { icon: AlertTriangle, color: 'text-red-400', label: 'Rebut élevé' },
 };
 
-export default function VSMStudio({ lang }: VSMStudioProps) {
+export default function VSMStudio({ lang, onOpenAI }: VSMStudioProps) {
   const tr = useTranslate(lang);
   const [view, setView] = useState<'current' | 'future' | 'poster'>('poster');
+  const aiOutput = useMemo(() => runAIEngine(), []);
   const [currentSteps, setCurrentSteps] = useState<VSMStep[]>([]);
   const [futureSteps, setFutureSteps] = useState<VSMStep[]>([]);
   const [context, setContext] = useState<VSMContext>(storage.getVSMContext());
@@ -1009,6 +1013,7 @@ export default function VSMStudio({ lang }: VSMStudioProps) {
 
   return (
     <div className="space-y-6" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      <AIInsightCard module="vsm" output={aiOutput} onOpenCopilot={onOpenAI} />
       <div className="flex items-center justify-between">
         <div>
           <h1 data-testid="text-vsm-title" className="text-2xl font-bold text-white">{tr('vsm.title')}</h1>

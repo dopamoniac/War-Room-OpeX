@@ -21,6 +21,13 @@ Professional Operation Excellence Management System for automotive wiring harnes
 8. **File Sharing** (`/files`) - File upload, search, categorization
 9. **Admin** (`/admin`) - Data management, export/import, system reset
 
+## AI Co-Pilot Layer
+A fully integrated rule-based AI engine accessible from every page:
+- **`client/src/lib/ai-engine.ts`** - Deterministic AI engine analyzing KPIs (trends, spikes, achievement), abnormalities (root-cause confidence), overdue actions, VSM wastes (bottlenecks, WIP, uptime), and projects (health/risk). Outputs: alerts, insights, recommendations, daily summary, draft generators.
+- **`client/src/components/ai-copilot-panel.tsx`** - Right-side panel (4 tabs: Insights, Recommendations, Drafts, Alerts). Opened via "AI Co-Pilot" button in top bar.
+- **`client/src/components/ai-alerts-center.tsx`** - Full-screen alerts modal with level/module filtering, per-alert acknowledge/snooze/assign. Opened via bell icon in top bar.
+- **`client/src/components/ai-insight-card.tsx`** - Per-module summary card shown at top of every page content area. Displays top alert, insight count, and "Open Co-Pilot" shortcut.
+
 ## Key Files
 - `shared/schema.ts` - All TypeScript types and constants
 - `client/src/lib/translations.ts` - i18n (FR/AR)

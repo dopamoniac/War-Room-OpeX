@@ -1,5 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'wouter';
+import { runAIEngine } from '@/lib/ai-engine';
+import AIInsightCard from '@/components/ai-insight-card';
 import type { Lang, CIProject, Dept, Status, KaizenCard, KaizenCategory, KaizenStatus } from '@shared/schema';
 import { DEPARTMENTS, KAIZEN_CATEGORIES, KAIZEN_STATUSES, KAIZEN_CATEGORY_COLORS, KAIZEN_STATUS_COLORS } from '@shared/schema';
 import { useTranslate } from '@/lib/translations';
@@ -12,6 +14,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, PieCha
 
 interface CIHubProps {
   lang: Lang;
+  onOpenAI?: () => void;
 }
 
 const TYPE_CONFIG: Record<string, { label: string; color: string }> = {
@@ -32,10 +35,11 @@ const PHASE_CONFIG: Record<string, { label: string; step: number }> = {
   control: { label: 'Control', step: 5 },
 };
 
-export default function CIHub({ lang }: CIHubProps) {
+export default function CIHub({ lang, onOpenAI }: CIHubProps) {
   const tr = useTranslate(lang);
   const [, navigate] = useLocation();
   const [tab, setTab] = useState<'overview' | 'ideas' | 'board' | 'cards'>('overview');
+  const aiOutput = useMemo(() => runAIEngine(), []);
   const [projects, setProjects] = useState<CIProject[]>([]);
   const [kaizenCards, setKaizenCards] = useState<KaizenCard[]>([]);
   const [showForm, setShowForm] = useState(false);
@@ -95,6 +99,7 @@ export default function CIHub({ lang }: CIHubProps) {
 
   return (
     <div className="space-y-6" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      <AIInsightCard module="ci" output={aiOutput} onOpenCopilot={onOpenAI} />
       <div className="flex items-center justify-between">
         <div>
           <h1 data-testid="text-ci-title" className="text-2xl font-bold text-white">{tr('ci.title')}</h1>
