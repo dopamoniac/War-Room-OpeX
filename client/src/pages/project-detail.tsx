@@ -178,7 +178,7 @@ Generated: ${new Date().toLocaleString()}
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="glass rounded-xl p-5">
           <h3 className="text-xs text-zinc-500 uppercase tracking-wider mb-3 flex items-center gap-2">
             <Users size={12} />
@@ -267,7 +267,7 @@ Generated: ${new Date().toLocaleString()}
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="glass rounded-xl p-5">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-semibold text-white flex items-center gap-2">
@@ -408,7 +408,7 @@ Generated: ${new Date().toLocaleString()}
             <div className="space-y-3">
               <input data-testid="input-action-desc" placeholder="Description" value={actionForm.description || ''} onChange={e => setActionForm({ ...actionForm, description: e.target.value })}
                 className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <input data-testid="input-action-responsible" placeholder="Responsible" value={actionForm.responsible || ''} onChange={e => setActionForm({ ...actionForm, responsible: e.target.value })}
                   className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
                 <input data-testid="input-action-due" type="date" value={actionForm.dueDate || ''} onChange={e => setActionForm({ ...actionForm, dueDate: e.target.value })}
@@ -756,7 +756,7 @@ function WBSSection({ project, saveProject }: { project: Project; saveProject: (
                 className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none h-16 resize-none" />
               <input data-testid="input-wbs-owner" placeholder="Responsible Person" value={form.owner || ''} onChange={e => setForm({ ...form, owner: e.target.value })}
                 className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
                   <label className="text-[10px] text-zinc-500">Start Date</label>
                   <input data-testid="input-wbs-start" type="date" value={form.startDate || ''} onChange={e => setForm({ ...form, startDate: e.target.value })}
@@ -768,7 +768,7 @@ function WBSSection({ project, saveProject }: { project: Project; saveProject: (
                     className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
                   <label className="text-[10px] text-zinc-500">Progress (%)</label>
                   <input data-testid="input-wbs-progress" type="number" min="0" max="100" value={form.progress ?? 0} onChange={e => setForm({ ...form, progress: Number(e.target.value) })}

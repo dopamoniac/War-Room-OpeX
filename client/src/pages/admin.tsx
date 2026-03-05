@@ -89,7 +89,7 @@ export default function Admin({ lang }: AdminProps) {
         <p className="text-sm text-zinc-500 mt-1">{tr('admin.data_management')}</p>
       </div>
 
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {dataStats.map(stat => {
           const Icon = stat.icon;
           return (
@@ -104,7 +104,7 @@ export default function Admin({ lang }: AdminProps) {
         })}
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="glass rounded-xl p-5">
           <h3 className="text-sm font-semibold text-white mb-2 flex items-center gap-2">
             <Building2 size={14} className="text-blue-400" />
@@ -142,7 +142,7 @@ export default function Admin({ lang }: AdminProps) {
           <Database size={14} className="text-blue-400" />
           {tr('admin.data_management')}
         </h3>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           <button data-testid="button-export" onClick={handleExport}
             className="flex items-center gap-3 p-4 rounded-lg bg-white/[0.03] hover:bg-white/[0.06] border border-white/5 transition-colors">
             <Download size={18} className="text-emerald-400" />

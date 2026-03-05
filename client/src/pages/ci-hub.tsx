@@ -204,7 +204,7 @@ function OverviewTab({ projects, kaizenCards, totalSavings, kaizenSavings, avgPr
 
   return (
     <>
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
         <div className="glass rounded-xl p-5">
           <div className="flex items-center gap-2 text-zinc-400 mb-2">
             <Lightbulb size={14} />
@@ -242,7 +242,7 @@ function OverviewTab({ projects, kaizenCards, totalSavings, kaizenSavings, avgPr
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="glass rounded-xl p-5">
           <h3 className="text-sm font-semibold text-white mb-4">Kaizen by Status</h3>
           <div className="h-48">
@@ -442,7 +442,7 @@ function IdeasTab({ projects, showForm, setShowForm, form, setForm, handleSave, 
                 className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
               <textarea data-testid="input-ci-description" placeholder="Description" value={form.description || ''} onChange={e => setForm({ ...form, description: e.target.value })}
                 className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none h-20 resize-none" />
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <select data-testid="select-ci-type" value={form.type || ''} onChange={e => setForm({ ...form, type: e.target.value as CIProject['type'] })}
                   className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none">
                   <option value="">Type</option>
@@ -454,13 +454,13 @@ function IdeasTab({ projects, showForm, setShowForm, form, setForm, handleSave, 
                   {DEPARTMENTS.map(d => <option key={d} value={d}>{d}</option>)}
                 </select>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <input data-testid="input-ci-leader" placeholder="Leader" value={form.leader || ''} onChange={e => setForm({ ...form, leader: e.target.value })}
                   className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
                 <input data-testid="input-ci-savings" type="number" placeholder="Économies (€)" value={form.savings || ''} onChange={e => setForm({ ...form, savings: Number(e.target.value) })}
                   className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <input data-testid="input-ci-start" type="date" value={form.startDate || ''} onChange={e => setForm({ ...form, startDate: e.target.value })}
                   className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
                 <input data-testid="input-ci-target" type="date" value={form.targetDate || ''} onChange={e => setForm({ ...form, targetDate: e.target.value })}
@@ -610,7 +610,7 @@ function CardsTab({ kaizenCards, onNavigate, onCreateNew }: {
         </button>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {filtered.map(card => (
           <div
             key={card.id}
@@ -630,7 +630,7 @@ function CardsTab({ kaizenCards, onNavigate, onCreateNew }: {
             </div>
             <div className="p-4">
               <h3 className="text-sm font-semibold text-white mb-2">{card.title}</h3>
-              <div className="grid grid-cols-2 gap-3 mb-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
                 <div className="p-2 rounded bg-red-500/5 border border-red-500/10">
                   <p className="text-[8px] text-red-400 uppercase tracking-wider mb-1">BEFORE</p>
                   <p className="text-[10px] text-zinc-400 line-clamp-2">{card.problemDescription}</p>

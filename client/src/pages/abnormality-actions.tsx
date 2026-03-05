@@ -92,7 +92,7 @@ function QQOQCCPStep({ data, onChange }: { data: Partial<A3Data['qqoqccp']>; onC
   return (
     <div className="space-y-4">
       <Section label="Qui — Who">
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {mkInput(f.qui_operateur || '', v => set('qui_operateur', v), 'Opérateur impliqué')}
           {mkInput(f.qui_dept || '', v => set('qui_dept', v), 'Département')}
           {mkInput(f.qui_equipe || '', v => set('qui_equipe', v), 'Équipe responsable')}
@@ -101,21 +101,21 @@ function QQOQCCPStep({ data, onChange }: { data: Partial<A3Data['qqoqccp']>; onC
       <Section label="Quoi — What">
         <div className="space-y-2">
           {mkInput(f.quoi_desc || '', v => set('quoi_desc', v), 'Description de l\'anomalie', true)}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {mkInput(f.quoi_process || '', v => set('quoi_process', v), 'Processus affecté')}
             {mkInput(f.quoi_symptomes || '', v => set('quoi_symptomes', v), 'Symptômes visibles')}
           </div>
         </div>
       </Section>
       <Section label="Où — Where">
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {mkInput(f.ou_ligne || '', v => set('ou_ligne', v), 'Ligne de production')}
           {mkInput(f.ou_poste || '', v => set('ou_poste', v), 'Poste de travail')}
           {mkInput(f.ou_machine || '', v => set('ou_machine', v), 'Machine')}
         </div>
       </Section>
       <Section label="Quand — When">
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           <input type="date" value={f.quand_date || ''} onChange={e => set('quand_date', e.target.value)} className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-xs text-zinc-200 outline-none" />
           <input type="time" value={f.quand_heure || ''} onChange={e => set('quand_heure', e.target.value)} className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-xs text-zinc-200 outline-none" />
           <select value={f.quand_poste || ''} onChange={e => set('quand_poste', e.target.value)} className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-xs text-zinc-200 outline-none">
@@ -126,7 +126,7 @@ function QQOQCCPStep({ data, onChange }: { data: Partial<A3Data['qqoqccp']>; onC
           </select>
         </div>
       </Section>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Section label="Comment — How">
           <div className="space-y-2">
             {mkInput(f.comment_sequence || '', v => set('comment_sequence', v), 'Séquence des événements', true)}
@@ -142,7 +142,7 @@ function QQOQCCPStep({ data, onChange }: { data: Partial<A3Data['qqoqccp']>; onC
         </Section>
       </div>
       <Section label="Pourquoi — Initial Hypothesis">
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {mkInput(f.pourquoi_cause || '', v => set('pourquoi_cause', v), 'Cause supposée initiale', true)}
           {mkInput(f.pourquoi_obs || '', v => set('pourquoi_obs', v), 'Observations terrain', true)}
         </div>
@@ -293,7 +293,7 @@ function IshikawaStep({ data, effectTitle, onChange }: { data: Partial<A3Ishikaw
             {effectTitle || 'Effet / Problème'}
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-3 mb-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-3">
           {top.map(bone => (
             <BonePanel key={bone.key} bone={bone} causes={data[bone.key] || []}
               onAdd={c => addCause(bone.key, c)} onRemove={i => removeCause(bone.key, i)} />
@@ -301,14 +301,14 @@ function IshikawaStep({ data, effectTitle, onChange }: { data: Partial<A3Ishikaw
         </div>
         <div className="w-px h-3 bg-zinc-700 mx-auto" />
         <div className="w-full h-px bg-zinc-700 mb-3" />
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {bottom.map(bone => (
             <BonePanel key={bone.key} bone={bone} causes={data[bone.key] || []}
               onAdd={c => addCause(bone.key, c)} onRemove={i => removeCause(bone.key, i)} />
           ))}
         </div>
       </div>
-      <div className="grid grid-cols-6 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
         {ISHIKAWA_BONES.map(bone => {
           const count = (data[bone.key] || []).length;
           return (
@@ -406,7 +406,7 @@ function PDCAStep({ data, onChange }: { data: A3PDCAItem[]; onChange: (d: A3PDCA
         </button>
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {phases.map(phase => {
           const phaseItems = data.filter(d => d.phase === phase);
           return (
@@ -466,7 +466,7 @@ function PDCAStep({ data, onChange }: { data: A3PDCAItem[]; onChange: (d: A3PDCA
               <textarea value={form.action || ''} onChange={e => setForm({ ...form, action: e.target.value })}
                 placeholder="Description de l'action" rows={2}
                 className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-xs text-zinc-200 outline-none resize-none" />
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <input value={form.responsible || ''} onChange={e => setForm({ ...form, responsible: e.target.value })}
                   placeholder="Responsable"
                   className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-xs text-zinc-200 outline-none" />
@@ -517,7 +517,7 @@ function MonitoringStep({ abn, allAbnormalities }: { abn: Abnormality; allAbnorm
 
   return (
     <div className="space-y-4">
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {[
           { label: 'Jours écoulés', value: daysSince, unit: 'j', color: daysSince > 30 ? '#ef4444' : '#10b981' },
           { label: 'Actions PDCA', value: pdca.length, unit: 'tot.', color: '#3b82f6' },
@@ -534,7 +534,7 @@ function MonitoringStep({ abn, allAbnormalities }: { abn: Abnormality; allAbnorm
         ))}
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="glass rounded-xl p-4">
           <p className="text-xs font-semibold text-white mb-3">Tendance des anomalies (6 mois)</p>
           <div className="h-40">
@@ -898,7 +898,7 @@ export default function AbnormalityActions({ lang, onOpenAI }: AbnormalityAction
       </div>
 
       {tab === 'abnormalities' && (
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {(['open', 'investigating', 'contained', 'closed'] as const).map(s => {
             const cfg = ABN_STATUS_CONFIG[s];
             const Icon = cfg.icon;
@@ -1036,7 +1036,7 @@ export default function AbnormalityActions({ lang, onOpenAI }: AbnormalityAction
                 className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
               <textarea data-testid="input-abn-description" placeholder="Description" value={abnForm.description || ''} onChange={e => setAbnForm({ ...abnForm, description: e.target.value })}
                 className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none h-20 resize-none" />
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <select data-testid="select-abn-category" value={abnForm.category || ''} onChange={e => setAbnForm({ ...abnForm, category: e.target.value as SQDCMCategory })}
                   className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none">
                   <option value="">Catégorie</option>
@@ -1048,7 +1048,7 @@ export default function AbnormalityActions({ lang, onOpenAI }: AbnormalityAction
                   {DEPARTMENTS.map(d => <option key={d} value={d}>{d}</option>)}
                 </select>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <input data-testid="input-abn-detected-by" placeholder="Détecté par" value={abnForm.detectedBy || ''} onChange={e => setAbnForm({ ...abnForm, detectedBy: e.target.value })}
                   className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
                 <select data-testid="select-abn-severity" value={abnForm.severity || 'medium'} onChange={e => setAbnForm({ ...abnForm, severity: e.target.value as Priority })}
@@ -1082,7 +1082,7 @@ export default function AbnormalityActions({ lang, onOpenAI }: AbnormalityAction
                 className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
               <textarea data-testid="input-act-description" placeholder="Description" value={actForm.description || ''} onChange={e => setActForm({ ...actForm, description: e.target.value })}
                 className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none h-20 resize-none" />
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <select data-testid="select-act-category" value={actForm.category || ''} onChange={e => setActForm({ ...actForm, category: e.target.value as SQDCMCategory })}
                   className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none">
                   <option value="">Catégorie</option>
@@ -1094,7 +1094,7 @@ export default function AbnormalityActions({ lang, onOpenAI }: AbnormalityAction
                   {DEPARTMENTS.map(d => <option key={d} value={d}>{d}</option>)}
                 </select>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <input data-testid="input-act-owner" placeholder="Responsable" value={actForm.owner || ''} onChange={e => setActForm({ ...actForm, owner: e.target.value })}
                   className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
                 <input data-testid="input-act-due-date" type="date" value={actForm.dueDate || ''} onChange={e => setActForm({ ...actForm, dueDate: e.target.value })}

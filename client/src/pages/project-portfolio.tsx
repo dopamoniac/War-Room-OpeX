@@ -205,7 +205,7 @@ interface OverviewTabProps {
 function OverviewTab({ projects, activeProjects, totalExpected, totalRealized, governanceIndex, govColor, govBg, healthData, categoryData, lang, onNavigate }: OverviewTabProps) {
   return (
     <>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="glass rounded-xl p-5">
           <div className="flex items-center gap-2 text-zinc-400 mb-2">
             <FolderKanban size={14} />
@@ -245,7 +245,7 @@ function OverviewTab({ projects, activeProjects, totalExpected, totalRealized, g
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="glass rounded-xl p-5">
           <h3 className="text-sm font-semibold text-white mb-4">Portfolio Health (G/O/R)</h3>
           <div className="h-56 flex items-center justify-center">
@@ -307,7 +307,7 @@ function OverviewTab({ projects, activeProjects, totalExpected, totalRealized, g
 
       <div className="glass rounded-xl p-5">
         <h3 className="text-sm font-semibold text-white mb-4">Project Summary</h3>
-        <div className="grid grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {projects.slice(0, 5).map((p: Project) => (
             <div
               key={p.id}
@@ -471,7 +471,7 @@ function RegisterProjectModal({ form, setForm, onSave, onClose, lang }: Register
             className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none focus:border-blue-500" />
           <textarea data-testid="input-proj-desc" placeholder="Description" value={form.description || ''} onChange={(e: any) => setForm({ ...form, description: e.target.value })}
             className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none h-16 resize-none" />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <select data-testid="select-proj-type" value={form.projectType || ''} onChange={(e: any) => setForm({ ...form, projectType: e.target.value })}
               className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none">
               <option value="">Project Type</option>
@@ -485,7 +485,7 @@ function RegisterProjectModal({ form, setForm, onSave, onClose, lang }: Register
               {PROJECT_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <input data-testid="input-proj-area" placeholder="Area / Line" value={form.area || ''} onChange={(e: any) => setForm({ ...form, area: e.target.value })}
               className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
             <select data-testid="select-proj-dept" value={form.dept || ''} onChange={(e: any) => setForm({ ...form, dept: e.target.value })}
@@ -494,13 +494,13 @@ function RegisterProjectModal({ form, setForm, onSave, onClose, lang }: Register
               {DEPARTMENTS.map(d => <option key={d} value={d}>{d}</option>)}
             </select>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <input data-testid="input-proj-owner" placeholder="Owner" value={form.owner || ''} onChange={(e: any) => setForm({ ...form, owner: e.target.value })}
               className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
             <input data-testid="input-proj-kpi" placeholder="Impact KPI" value={form.impactKPI || ''} onChange={(e: any) => setForm({ ...form, impactKPI: e.target.value })}
               className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div>
               <label className="text-[10px] text-zinc-500">Start Date</label>
               <input type="date" value={form.startDate || ''} onChange={(e: any) => setForm({ ...form, startDate: e.target.value })}

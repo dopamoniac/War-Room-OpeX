@@ -25,7 +25,7 @@ import ReportCenter from '@/pages/report-center';
 import FileSharing from '@/pages/file-sharing';
 import Admin from '@/pages/admin';
 import NotFound from "@/pages/not-found";
-import { Bot, Bell, LogOut, User } from 'lucide-react';
+import { Bot, Bell, LogOut, User, Menu } from 'lucide-react';
 
 initializeData();
 
@@ -35,6 +35,7 @@ function App() {
   const [aiPanelOpen, setAiPanelOpen] = useState(false);
   const [alertsCenterOpen, setAlertsCenterOpen] = useState(false);
   const [alertCount, setAlertCount] = useState(0);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     storage.setLang(lang);
@@ -62,6 +63,7 @@ function App() {
     setIsAuthenticated(false);
     setAiPanelOpen(false);
     setAlertsCenterOpen(false);
+    setSidebarOpen(false);
   };
 
   if (!isAuthenticated) {
@@ -82,13 +84,30 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <div className="flex min-h-screen bg-background">
-          <AppSidebar lang={lang} onLangChange={setLang} />
-          <main className="flex-1 ml-64 overflow-y-auto">
-            <div className="sticky top-0 z-30 flex items-center justify-end gap-2 px-6 py-2 border-b border-white/5"
-              style={{ background: 'rgba(9,9,11,0.85)', backdropFilter: 'blur(12px)' }}>
+          <AppSidebar
+            lang={lang}
+            onLangChange={setLang}
+            isOpen={sidebarOpen}
+            onClose={() => setSidebarOpen(false)}
+          />
+          <main className="flex-1 md:ml-64 overflow-y-auto min-w-0">
+            <div
+              className="sticky top-0 z-30 flex items-center gap-2 px-3 sm:px-6 py-2 border-b border-white/5"
+              style={{ background: 'rgba(9,9,11,0.85)', backdropFilter: 'blur(12px)' }}
+            >
+              <button
+                data-testid="button-open-sidebar"
+                onClick={() => setSidebarOpen(true)}
+                className="md:hidden p-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-white/5 transition-colors mr-1 min-w-[44px] min-h-[44px] flex items-center justify-center"
+                aria-label="Open menu"
+              >
+                <Menu size={18} />
+              </button>
+
+              <div className="flex-1" />
 
               {session && (
-                <div className="flex items-center gap-1.5 mr-1">
+                <div className="hidden sm:flex items-center gap-1.5 mr-1">
                   <User size={12} className="text-zinc-600" />
                   <span data-testid="text-logged-user" className="text-xs text-zinc-500 font-medium">{session.username}</span>
                 </div>
@@ -97,7 +116,7 @@ function App() {
               <button
                 data-testid="button-ai-alerts"
                 onClick={() => setAlertsCenterOpen(true)}
-                className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-zinc-400 hover:text-zinc-200 hover:bg-white/5 transition-colors"
+                className="relative flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs text-zinc-400 hover:text-zinc-200 hover:bg-white/5 transition-colors min-h-[44px] md:min-h-0"
               >
                 <Bell size={14} />
                 <span className="hidden sm:inline">Alertes</span>
@@ -111,16 +130,16 @@ function App() {
               <button
                 data-testid="button-ai-copilot"
                 onClick={() => setAiPanelOpen(true)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-400 hover:bg-blue-600/30 transition-colors text-xs"
+                className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-400 hover:bg-blue-600/30 transition-colors text-xs min-h-[44px] md:min-h-0"
               >
                 <Bot size={14} />
-                <span>AI Co-Pilot</span>
+                <span className="hidden sm:inline">AI Co-Pilot</span>
               </button>
 
               <button
                 data-testid="button-logout"
                 onClick={handleLogout}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-zinc-500 hover:text-red-400 hover:bg-red-500/5 transition-colors border border-white/5 hover:border-red-500/20"
+                className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs text-zinc-500 hover:text-red-400 hover:bg-red-500/5 transition-colors border border-white/5 hover:border-red-500/20 min-h-[44px] md:min-h-0"
                 title="Déconnexion"
               >
                 <LogOut size={13} />
@@ -128,7 +147,7 @@ function App() {
               </button>
             </div>
 
-            <div className="p-6">
+            <div className="p-3 sm:p-6">
               <Switch>
                 <Route path="/">
                   <WarRoom lang={lang} onOpenAI={() => setAiPanelOpen(true)} />

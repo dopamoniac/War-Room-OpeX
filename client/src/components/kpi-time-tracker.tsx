@@ -501,7 +501,7 @@ export default function KPITimeTracker({ kpis }: KPITimeTrackerProps) {
             <Settings size={13} className="text-blue-400" />
             <span className="text-sm font-semibold text-white">Réglages du graphique</span>
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             <div>
               <label className="text-[10px] text-zinc-500 mb-1 block">Titre du graphique</label>
               <input value={chartTitle} onChange={e => setChartTitle(e.target.value)}
@@ -670,7 +670,7 @@ export default function KPITimeTracker({ kpis }: KPITimeTrackerProps) {
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="glass rounded-xl p-4">
           <h3 className="text-xs font-semibold text-white mb-3 flex items-center gap-1.5">
             <Activity size={12} className="text-blue-400" />

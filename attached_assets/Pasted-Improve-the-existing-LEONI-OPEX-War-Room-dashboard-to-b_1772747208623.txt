@@ -1,0 +1,137 @@
+Improve the existing LEONI OPEX War Room dashboard to be fully **mobile-friendly and responsive**.
+
+IMPORTANT RULES:
+- The dashboard already exists.
+- Do NOT redesign the whole UI.
+- Do NOT change module structure or navigation logic.
+- Only improve responsiveness, layout behavior, and touch usability.
+- Keep the same dark theme and visual identity.
+
+GOAL:
+The dashboard must work well on:
+- Mobile (360–430px)
+- Tablet (768–1024px)
+- Desktop (>= 1280px)
+
+------------------------------------------------
+1) RESPONSIVE LAYOUT RULES (GLOBAL)
+
+Implement responsive breakpoints:
+- xs: <480px (mobile)
+- sm: 480–767px
+- md: 768–1023px (tablet)
+- lg: 1024–1439px
+- xl: >=1440px
+
+Replace fixed widths with fluid widths.
+Avoid horizontal scroll on mobile.
+
+Use a responsive grid:
+- Desktop: 3–4 columns for cards when possible
+- Tablet: 2 columns
+- Mobile: 1 column stack
+
+------------------------------------------------
+2) SIDEBAR BEHAVIOR
+
+Desktop:
+- Sidebar stays visible.
+
+Tablet + Mobile:
+- Sidebar collapses automatically into a hamburger menu.
+- Opens as a slide-in drawer.
+- Clicking outside closes it.
+
+Keep the same menu items, only change display behavior.
+
+------------------------------------------------
+3) TOP BAR (HEADER)
+
+On mobile:
+- Reduce spacing and font size slightly.
+- Move secondary controls (filters, language switch) into a “More” dropdown.
+- Keep only essential items visible:
+  - page title
+  - search icon
+  - notifications
+  - profile
+  - hamburger menu
+
+------------------------------------------------
+4) CARDS + TABLES (MOST IMPORTANT)
+
+KPI cards:
+- On mobile stack cards vertically.
+- Make card height flexible.
+- Ensure big readable numbers.
+
+Tables (Abnormalities list, Actions list, Projects, etc.):
+- On mobile convert each row into a “card row” layout:
+  - Title on top
+  - Key fields below (date, severity, status)
+  - Actions as icons (edit, view, export)
+- Allow horizontal scroll only inside tables if absolutely necessary, but prefer card-row view.
+
+------------------------------------------------
+5) FORMS (CREATE ABNORMALITY, ACTIONS, KAIZEN CARD, ETC.)
+
+On mobile:
+- Single-column forms
+- Large touch targets
+- Sticky bottom action bar:
+  - Save
+  - Cancel
+  - Submit
+
+Ensure validation messages are clear.
+
+------------------------------------------------
+6) CHARTS (KPI STUDIO + PARETO)
+
+Charts must be responsive:
+- Auto-resize to container width
+- On mobile reduce number of x-axis labels
+- Provide a toggle for:
+  - Day / Week / Month
+  - Fullscreen chart view
+
+Add a “Fullscreen chart” button for mobile.
+
+------------------------------------------------
+7) WBS + GANTT + VSM CANVAS (SPECIAL)
+
+For large canvases (WBS Diagram, Gantt Timeline, VSM map):
+
+Mobile behavior:
+- Default view shows a simplified preview + “Open Fullscreen”.
+- Fullscreen mode supports:
+  - pinch-to-zoom
+  - pan
+  - fit-to-screen button
+- Editing remains possible but optimized for touch:
+  - tap to select
+  - side panel opens for editing properties
+
+------------------------------------------------
+8) EXPORT / PDF / PRINT (MOBILE)
+
+Export buttons must remain accessible on mobile:
+- Place export inside a “…” menu on small screens.
+- Ensure generated PDF is A4/A3 and independent from screen size.
+
+------------------------------------------------
+9) ACCESSIBILITY + TOUCH UX
+
+- Minimum button size: 44px
+- Increase spacing between clickable elements
+- Ensure contrast is maintained in dark mode
+- Use consistent mobile padding
+
+------------------------------------------------
+DELIVERABLES
+
+Provide:
+1) A clear responsive strategy for each module (War Room, KPI Studio, Abnormalities, Kaizen, VSM, Portfolio)
+2) Exact UI changes required (sidebar drawer, table-to-cards, chart fullscreen)
+3) A checklist to verify mobile readiness
+4) Ensure no layout breaks on common resolutions

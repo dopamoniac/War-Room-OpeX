@@ -1066,7 +1066,7 @@ export default function VSMStudio({ lang, onOpenAI }: VSMStudioProps) {
                 <TrendingDown size={14} />
                 Comparaison État Actuel → État Futur
               </div>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="text-center">
                   <div className="text-[10px] text-zinc-500 mb-1">Lead Time</div>
                   <div className="flex items-center justify-center gap-2">
@@ -1115,7 +1115,7 @@ export default function VSMStudio({ lang, onOpenAI }: VSMStudioProps) {
 
           <div className={`flex gap-4 ${view === 'current' ? '' : ''}`}>
             <div className="flex-1 space-y-4">
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="glass rounded-xl p-4">
                   <div className="text-xs text-zinc-500 mb-1">{tr('vsm.takt_time')}</div>
                   <div className="text-xl font-bold text-blue-400 font-mono">{context.taktTime}s</div>
@@ -1241,7 +1241,7 @@ export default function VSMStudio({ lang, onOpenAI }: VSMStudioProps) {
             <div className="space-y-3">
               <input data-testid="input-vsm-name" placeholder="Nom de l'étape" value={form.name || ''} onChange={e => setForm({ ...form, name: e.target.value })}
                 className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
                   <label className="text-[10px] text-zinc-500">Cycle Time (s)</label>
                   <input data-testid="input-vsm-ct" type="number" value={form.cycleTime || ''} onChange={e => setForm({ ...form, cycleTime: Number(e.target.value) })}
@@ -1253,7 +1253,7 @@ export default function VSMStudio({ lang, onOpenAI }: VSMStudioProps) {
                     className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
                   <label className="text-[10px] text-zinc-500">Uptime (%)</label>
                   <input type="number" value={form.uptime || 95} onChange={e => setForm({ ...form, uptime: Number(e.target.value) })}
@@ -1265,7 +1265,7 @@ export default function VSMStudio({ lang, onOpenAI }: VSMStudioProps) {
                     className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none" />
                 </div>
               </div>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 <div>
                   <label className="text-[10px] text-zinc-500">WIP</label>
                   <input type="number" value={form.wip || 0} onChange={e => setForm({ ...form, wip: Number(e.target.value) })}
@@ -1284,7 +1284,7 @@ export default function VSMStudio({ lang, onOpenAI }: VSMStudioProps) {
                   </select>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
                   <label className="text-[10px] text-zinc-500">Lead Time (min)</label>
                   <input type="number" value={form.leadTime || ''} onChange={e => setForm({ ...form, leadTime: Number(e.target.value) })}

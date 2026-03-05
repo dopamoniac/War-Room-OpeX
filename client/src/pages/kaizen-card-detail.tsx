@@ -741,7 +741,7 @@ Generated: ${new Date().toLocaleString()}
         </select>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="glass rounded-xl p-4 space-y-3">
           <h3 className="text-xs text-zinc-500 uppercase tracking-wider flex items-center gap-1.5"><MapPin size={10} />Card Information</h3>
           <div>
@@ -917,7 +917,7 @@ Generated: ${new Date().toLocaleString()}
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="glass rounded-xl p-4">
           <h3 className="text-xs text-zinc-500 uppercase tracking-wider mb-3 flex items-center gap-1.5">
             <Wrench size={10} />

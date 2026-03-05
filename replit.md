@@ -54,6 +54,19 @@ Lightweight login layer protecting all dashboard routes:
 - Industrial/manufacturing aesthetic
 - SQDCM framework (Safety, Quality, Delivery, Cost, Morale)
 - French by default with Arabic RTL toggle
+- Fully responsive: Mobile (390px+), Tablet (768px+), Desktop (1024px+)
+
+## Responsive Layout
+- **Sidebar**: Fixed on desktop (md:flex), hidden on mobile by default; opens as slide-in drawer via hamburger button (`data-testid="button-open-sidebar"`). Backdrop overlay on mobile closes drawer when tapped. Close X button inside sidebar (`data-testid="button-close-sidebar"`).
+- **Main content**: `md:ml-64` offset (no offset on mobile). Padding `p-3 sm:p-6`.
+- **Top bar**: Hamburger visible only on mobile (`md:hidden`). Username label hidden on xs. Button labels hidden on xs (icons only). All touch targets min 44px.
+- **Grids**: All fixed grids replaced with responsive variants:
+  - `grid-cols-4` → `grid-cols-1 sm:grid-cols-2 lg:grid-cols-4`
+  - `grid-cols-5` → `grid-cols-2 sm:grid-cols-3 lg:grid-cols-5`
+  - `grid-cols-3` → `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`
+  - `grid-cols-2` → `grid-cols-1 md:grid-cols-2`
+- **Tables**: Wrapped in `overflow-x-auto` for horizontal scroll on mobile.
+- Applied across: war-room, kpi-studio, kpi-time-tracker, abnormality-actions, ci-hub, vsm-studio, project-portfolio, project-detail, kaizen-card-detail, report-center, admin.
 
 ## Data Persistence
 All data stored in localStorage under keys prefixed with `leoni-`. No backend database required. Data can be exported/imported via Admin module as JSON.

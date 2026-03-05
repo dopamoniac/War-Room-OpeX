@@ -327,7 +327,7 @@ function ConfigModal({ cfg, onSave, onClose }: { cfg: ChartConfig; onSave: (c: C
             <input value={local.title} onChange={e => setLocal({ ...local, title: e.target.value })}
               className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none focus:border-blue-500/50" />
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div>
               <label className="text-xs text-zinc-400 mb-1 block">Étiquette axe X</label>
               <input value={local.xLabel} onChange={e => setLocal({ ...local, xLabel: e.target.value })}
@@ -355,7 +355,7 @@ function ConfigModal({ cfg, onSave, onClose }: { cfg: ChartConfig; onSave: (c: C
               })}
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div>
               <label className="text-xs text-zinc-400 mb-1 block">Département</label>
               <select value={local.dept} onChange={e => setLocal({ ...local, dept: e.target.value as Dept | 'all' })}
@@ -623,7 +623,7 @@ export default function KPIStudio({ lang, onOpenAI }: KPIStudioProps) {
 
       {tab === 'overview' && (
         <>
-          <div className="grid grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             {SQDCM_CATEGORIES.map(cat => {
               const list = kpis.filter(k => k.category === cat);
               const ach = list.length > 0 ? list.reduce((s, k) => s + (k.target > 0 ? (k.actual / k.target) * 100 : 100), 0) / list.length : 0;
@@ -644,7 +644,7 @@ export default function KPIStudio({ lang, onOpenAI }: KPIStudioProps) {
             })}
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="glass rounded-xl p-5">
               <h3 className="text-sm font-semibold text-white mb-3">Performance par catégorie</h3>
               <div className="h-56">
@@ -694,7 +694,7 @@ export default function KPIStudio({ lang, onOpenAI }: KPIStudioProps) {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {charts.map(cfg => (
                 <ChartCard key={cfg.id} cfg={cfg} kpis={kpis} onUpdate={updateChart} onRemove={removeChart} />
               ))}
@@ -823,7 +823,7 @@ export default function KPIStudio({ lang, onOpenAI }: KPIStudioProps) {
               </div>
             </div>
 
-            <div className="grid grid-cols-5 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
               {SQDCM_CATEGORIES.map(cat => {
                 const list = kpis.filter(k => k.category === cat);
                 const ach = list.length > 0 ? list.reduce((s, k) => s + (k.target > 0 ? (k.actual / k.target) * 100 : 100), 0) / list.length : 0;
@@ -838,7 +838,7 @@ export default function KPIStudio({ lang, onOpenAI }: KPIStudioProps) {
             </div>
 
             {charts.length > 0 ? (
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {charts.map(cfg => (
                   <div key={cfg.id} className="rounded-xl p-4" style={{ background: '#27272a', border: '1px solid rgba(255,255,255,0.06)' }}>
                     <p className="text-xs font-semibold text-white mb-3">{cfg.title}</p>
@@ -901,7 +901,7 @@ export default function KPIStudio({ lang, onOpenAI }: KPIStudioProps) {
                 <input data-testid="input-kpi-name" value={form.name || ''} onChange={e => setForm({ ...form, name: e.target.value })}
                   className="w-full px-3 py-2 mt-1 rounded-lg bg-white/5 border border-white/10 text-sm text-zinc-200 outline-none focus:border-blue-500" />
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
                   <label className="text-xs text-zinc-400">{tr('kpi.category')}</label>
                   <select data-testid="select-kpi-category" value={form.category || ''} onChange={e => setForm({ ...form, category: e.target.value as SQDCMCategory })}
@@ -919,7 +919,7 @@ export default function KPIStudio({ lang, onOpenAI }: KPIStudioProps) {
                   </select>
                 </div>
               </div>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 <div>
                   <label className="text-xs text-zinc-400">{tr('kpi.unit')}</label>
                   <input data-testid="input-kpi-unit" value={form.unit || ''} onChange={e => setForm({ ...form, unit: e.target.value })}

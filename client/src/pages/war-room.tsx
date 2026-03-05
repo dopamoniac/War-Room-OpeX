@@ -88,23 +88,21 @@ export default function WarRoom({ lang, onOpenAI }: WarRoomProps) {
   return (
     <div className="space-y-6" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       <AIInsightCard module="warroom" output={aiOutput} onOpenCopilot={onOpenAI} />
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-start sm:items-center justify-between gap-3">
         <div>
-          <h1 data-testid="text-warroom-title" className="text-2xl font-bold text-white tracking-tight">
+          <h1 data-testid="text-warroom-title" className="text-xl sm:text-2xl font-bold text-white tracking-tight">
             {tr('warroom.title')}
           </h1>
           <p className="text-sm text-zinc-500 mt-1">{tr('warroom.overview')}</p>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="glass rounded-xl px-4 py-2 flex items-center gap-3">
-            <Activity size={16} className="text-blue-400" />
-            <span className="text-sm text-zinc-300 font-mono">{new Date().toLocaleDateString(lang === 'ar' ? 'ar-TN' : 'fr-FR')}</span>
-          </div>
+        <div className="glass rounded-xl px-3 sm:px-4 py-2 flex items-center gap-2 sm:gap-3 shrink-0">
+          <Activity size={16} className="text-blue-400" />
+          <span className="text-xs sm:text-sm text-zinc-300 font-mono">{new Date().toLocaleDateString(lang === 'ar' ? 'ar-TN' : 'fr-FR')}</span>
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-4">
-        <div className="glass rounded-xl p-5 col-span-1 flex flex-col items-center justify-center">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="glass rounded-xl p-5 col-span-2 sm:col-span-1 flex flex-col items-center justify-center">
           <div className="relative w-28 h-28">
             <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
               <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="8" />
@@ -186,7 +184,7 @@ export default function WarRoom({ lang, onOpenAI }: WarRoomProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
         {categoryMetrics.map(metric => {
           const Icon = CATEGORY_ICONS[metric.category];
           return (
@@ -259,7 +257,7 @@ export default function WarRoom({ lang, onOpenAI }: WarRoomProps) {
         })}
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="glass rounded-xl p-5">
           <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
             <CategoryChartIcon />
