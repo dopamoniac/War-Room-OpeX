@@ -29,14 +29,24 @@ A fully integrated rule-based AI engine accessible from every page:
 - **`client/src/components/ai-alerts-center.tsx`** - Full-screen alerts modal with level/module filtering, per-alert acknowledge/snooze/assign. Opened via bell icon in top bar.
 - **`client/src/components/ai-insight-card.tsx`** - Per-module summary card shown at top of every page content area. Displays top alert, insight count, and "Open Co-Pilot" shortcut.
 
+## Authentication
+Lightweight login layer protecting all dashboard routes:
+- **`client/src/lib/auth.ts`** - Auth utility: `auth.login(user, pass)`, `auth.logout()`, `auth.isAuthenticated()`, `auth.getSession()`. Session stored in localStorage under `leoni-auth-session`.
+- **`client/src/pages/login.tsx`** - Dark industrial login card matching dashboard theme. Fields: Username + Password (with show/hide toggle). Displays error "Invalid username or password" on bad credentials.
+- Credentials: **Username: Amine / Password: pfe** (case-sensitive)
+- `App.tsx` guards all routes — shows `<Login>` if not authenticated, otherwise renders full dashboard
+- Top navigation bar shows logged-in username and a **Logout** button (clears session, returns to login)
+
 ## Key Files
 - `shared/schema.ts` - All TypeScript types and constants
 - `client/src/lib/translations.ts` - i18n (FR/AR)
 - `client/src/lib/storage.ts` - localStorage wrapper
 - `client/src/lib/initial-data.ts` - Seed data for demo
+- `client/src/lib/auth.ts` - Authentication session management
+- `client/src/pages/login.tsx` - Login page
 - `client/src/components/app-sidebar.tsx` - Navigation sidebar
 - `client/src/pages/` - All 9 module pages
-- `client/src/App.tsx` - Main app with routing
+- `client/src/App.tsx` - Main app with routing + auth guard
 
 ## Design
 - Dark-only theme (near-black background, zinc text, blue-600 accent)

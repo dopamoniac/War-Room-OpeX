@@ -46,7 +46,7 @@ export default function ProjectDetail({ id, lang, onOpenAI }: ProjectDetailProps
 
   return (
     <div className="space-y-6" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-      <AIInsightCard module="project-detail" output={aiOutput} onOpenCopilot={onOpenAI} />
+      <AIInsightCard module="portfolio" output={aiOutput} onOpenCopilot={onOpenAI} />
       <div className="flex items-center gap-3">
         <button data-testid="button-back" onClick={() => navigate('/portfolio')} className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-colors">
           <ArrowLeft size={18} />

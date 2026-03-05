@@ -8,9 +8,11 @@ import type { Lang } from '@shared/schema';
 import { storage } from '@/lib/storage';
 import { initializeData } from '@/lib/initial-data';
 import { runAIEngine } from '@/lib/ai-engine';
+import { auth } from '@/lib/auth';
 import AppSidebar from '@/components/app-sidebar';
 import AICopilotPanel from '@/components/ai-copilot-panel';
 import AIAlertsCenter from '@/components/ai-alerts-center';
+import Login from '@/pages/login';
 import WarRoom from '@/pages/war-room';
 import KPIStudio from '@/pages/kpi-studio';
 import AbnormalityActions from '@/pages/abnormality-actions';
@@ -23,11 +25,12 @@ import ReportCenter from '@/pages/report-center';
 import FileSharing from '@/pages/file-sharing';
 import Admin from '@/pages/admin';
 import NotFound from "@/pages/not-found";
-import { Bot, Bell } from 'lucide-react';
+import { Bot, Bell, LogOut, User } from 'lucide-react';
 
 initializeData();
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(() => auth.isAuthenticated());
   const [lang, setLang] = useState<Lang>(storage.getLang());
   const [aiPanelOpen, setAiPanelOpen] = useState(false);
   const [alertsCenterOpen, setAlertsCenterOpen] = useState(false);
@@ -40,6 +43,7 @@ function App() {
   }, [lang]);
 
   useEffect(() => {
+    if (!isAuthenticated) return;
     const updateAlerts = () => {
       const output = runAIEngine();
       setAlertCount(output.alerts.filter(a => a.level === 'critical' || a.level === 'high').length);
@@ -47,7 +51,31 @@ function App() {
     updateAlerts();
     const interval = setInterval(updateAlerts, 60000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isAuthenticated]);
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    auth.logout();
+    setIsAuthenticated(false);
+    setAiPanelOpen(false);
+    setAlertsCenterOpen(false);
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Login onLogin={handleLogin} />
+        </TooltipProvider>
+      </QueryClientProvider>
+    );
+  }
+
+  const session = auth.getSession();
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -58,6 +86,14 @@ function App() {
           <main className="flex-1 ml-64 overflow-y-auto">
             <div className="sticky top-0 z-30 flex items-center justify-end gap-2 px-6 py-2 border-b border-white/5"
               style={{ background: 'rgba(9,9,11,0.85)', backdropFilter: 'blur(12px)' }}>
+
+              {session && (
+                <div className="flex items-center gap-1.5 mr-1">
+                  <User size={12} className="text-zinc-600" />
+                  <span data-testid="text-logged-user" className="text-xs text-zinc-500 font-medium">{session.username}</span>
+                </div>
+              )}
+
               <button
                 data-testid="button-ai-alerts"
                 onClick={() => setAlertsCenterOpen(true)}
@@ -71,6 +107,7 @@ function App() {
                   </span>
                 )}
               </button>
+
               <button
                 data-testid="button-ai-copilot"
                 onClick={() => setAiPanelOpen(true)}
@@ -79,7 +116,18 @@ function App() {
                 <Bot size={14} />
                 <span>AI Co-Pilot</span>
               </button>
+
+              <button
+                data-testid="button-logout"
+                onClick={handleLogout}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-zinc-500 hover:text-red-400 hover:bg-red-500/5 transition-colors border border-white/5 hover:border-red-500/20"
+                title="Déconnexion"
+              >
+                <LogOut size={13} />
+                <span className="hidden sm:inline">Logout</span>
+              </button>
             </div>
+
             <div className="p-6">
               <Switch>
                 <Route path="/">
