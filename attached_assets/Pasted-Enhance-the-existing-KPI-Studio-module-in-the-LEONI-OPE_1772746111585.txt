@@ -1,0 +1,116 @@
+Enhance the existing **KPI Studio module** in the LEONI OPEX War Room dashboard.
+
+Important constraints:
+
+* The KPI Studio already exists.
+* Do NOT redesign the dashboard.
+* Do NOT change navigation or layout.
+* Only extend the current KPI visualization capabilities.
+* Maintain the current dark UI style and component structure.
+
+---
+
+# KPI TIME TRACKING SYSTEM
+
+Allow users to generate charts for **any KPI available in the system**.
+
+Users must be able to select a KPI from the list and visualize its evolution over time.
+
+Add a **time tracking selector** allowing the user to display KPI trends by:
+
+* Day (Jour)
+* Week
+* Month
+
+The system must automatically aggregate data according to the selected time scale.
+
+Example:
+
+Daily view → show daily values
+Weekly view → show weekly averages or totals
+Monthly view → show monthly aggregation
+
+---
+
+# KPI CHART GENERATION
+
+When a KPI is selected, automatically generate a chart showing its evolution over time.
+
+Supported chart types:
+
+* Line chart (default for time tracking)
+* Bar chart
+* Area chart
+* Stacked bar chart
+* Pie chart (for distribution analysis)
+
+Users must be able to switch chart types dynamically without reloading data.
+
+---
+
+# KPI TRACKING FEATURES
+
+Charts must support:
+
+* date range selection
+* comparison between two periods
+* zoom and hover values
+* highlight abnormal spikes
+* display average trend line
+
+Add optional features:
+
+* moving average line
+* target line (KPI objective)
+* alert markers when KPI exceeds threshold
+
+---
+
+# FILTERS
+
+Add filters allowing the user to refine the analysis:
+
+* production line
+* department
+* shift
+* product family
+
+Charts must update automatically when filters change.
+
+---
+
+# EDITABLE CHART SETTINGS
+
+Allow users to modify chart parameters:
+
+* chart title
+* color palette
+* axis labels
+* aggregation mode
+
+All modifications must update instantly.
+
+---
+
+# EXPORT AND PRINT
+
+Charts must be exportable in high quality:
+
+* PNG
+* SVG
+* PDF
+
+Export must support A4 / A3 printable formats.
+
+Resolution must be suitable for management reports.
+
+---
+
+# SYSTEM CONSTRAINTS
+
+Implementation must:
+
+* reuse existing KPI data
+* not modify unrelated modules
+* keep current performance fast and responsive
+* integrate smoothly into the existing KPI Studio interface

@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { runAIEngine } from '@/lib/ai-engine';
 import AIInsightCard from '@/components/ai-insight-card';
+import KPITimeTracker from '@/components/kpi-time-tracker';
 import type { Lang, KPIEntry, SQDCMCategory, Dept } from '@shared/schema';
 import { SQDCM_LABELS, SQDCM_CATEGORIES, DEPARTMENTS } from '@shared/schema';
 import { useTranslate } from '@/lib/translations';
@@ -10,7 +11,7 @@ import {
   TrendingUp, PieChart as PieIcon, Activity, Layers,
   Settings, Download, Printer, FileText, ChevronDown, BarChart2,
   ClipboardList, FileDown, Palette, RefreshCw, CheckSquare, Square,
-  LayoutGrid, AlertCircle
+  LayoutGrid, AlertCircle, CalendarRange
 } from 'lucide-react';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
@@ -512,7 +513,7 @@ function ChartCard({ cfg, kpis, onUpdate, onRemove }: {
 export default function KPIStudio({ lang, onOpenAI }: KPIStudioProps) {
   const tr = useTranslate(lang);
   const [kpis, setKpis] = useState<KPIEntry[]>([]);
-  const [tab, setTab] = useState<'overview' | 'studio' | 'data' | 'report'>('overview');
+  const [tab, setTab] = useState<'overview' | 'tracking' | 'studio' | 'data' | 'report'>('overview');
   const aiOutput = useMemo(() => runAIEngine(), []);
   const [filterCat, setFilterCat] = useState<SQDCMCategory | 'all'>('all');
   const [filterDept, setFilterDept] = useState<Dept | 'all'>('all');
@@ -607,10 +608,11 @@ export default function KPIStudio({ lang, onOpenAI }: KPIStudioProps) {
 
       <div className="flex bg-white/5 rounded-xl p-0.5 w-fit">
         {[
-          { key: 'overview' as const, label: 'Vue d\'ensemble', icon: BarChart3 },
-          { key: 'studio' as const,   label: 'Studio Graphique', icon: LayoutGrid },
-          { key: 'data' as const,     label: 'Données KPI',      icon: ClipboardList },
-          { key: 'report' as const,   label: 'Rapport',          icon: FileDown },
+          { key: 'overview' as const,  label: 'Vue d\'ensemble',  icon: BarChart3 },
+          { key: 'tracking' as const,  label: 'Suivi Temporel',   icon: CalendarRange },
+          { key: 'studio' as const,    label: 'Studio Graphique', icon: LayoutGrid },
+          { key: 'data' as const,      label: 'Données KPI',      icon: ClipboardList },
+          { key: 'report' as const,    label: 'Rapport',          icon: FileDown },
         ].map(t => (
           <button key={t.key} data-testid={`tab-kpi-${t.key}`} onClick={() => setTab(t.key)}
             className={`flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${tab === t.key ? 'bg-blue-600 text-white shadow-lg' : 'text-zinc-400 hover:text-zinc-200'}`}>
@@ -675,6 +677,10 @@ export default function KPIStudio({ lang, onOpenAI }: KPIStudioProps) {
             </div>
           </div>
         </>
+      )}
+
+      {tab === 'tracking' && (
+        <KPITimeTracker kpis={kpis} />
       )}
 
       {tab === 'studio' && (
